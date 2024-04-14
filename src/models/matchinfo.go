@@ -148,7 +148,6 @@ type UserGame struct {
 		Alpha          int `json:"8,omitempty"`
 		Omega          int `json:"9,omitempty"`
 		Gamma          int `json:"10,omitempty"`
-		Drone          int `json:"11,omitempty"`
 		MutantChickens int `json:"12,omitempty"` //
 		MutantBats     int `json:"13,omitempty"` //
 		MutantBoars    int `json:"14,omitempty"` //
@@ -237,7 +236,7 @@ type UserGame struct {
 		KillChicken                         int     `json:"KillChicken"`
 		KillBat                             int     `json:"KillBat"`
 		KillBoar                            int     `json:"KillBoar"`
-		KillWildDog                         int     `json:"KillWildDog"`
+		KillDog                             int     `json:"KillWildDog"`
 		KillWolf                            int     `json:"KillWolf"`
 		GoldSecurityConsoleAccess           int     `json:"GoldSecurityConsoleAccess,omitempty"`
 		KillMutantBoar                      int     `json:"KillMutantBoar,omitempty"`

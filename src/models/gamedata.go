@@ -328,7 +328,7 @@ type HowToFindItem struct {
 	HuntWildDog     int `json:"huntWildDog"`
 	HuntWolf        int `json:"huntWolf"`
 	HuntBear        int `json:"huntBear"`
-	HuntWickline    int `json:"huntWickline"`
+	HuntWickeline   int `json:"huntWickline"`
 	HuntAlpha       int `json:"huntAlpha"`
 	HuntOmega       int `json:"huntOmega"`
 	CollectibleCode int `json:"collectibleCode"`
@@ -351,7 +351,7 @@ type InfusionProduct struct {
 	Icon             string      `json:"icon"`
 	SimpleIcon       string      `json:"simpleIcon"`
 	AlertInSpectator bool        `json:"alertInSpectator"`
-	CharacterCodes   interface{} `json:"characterCodes"`
+	CharacterCodes   interface{} `json:"characterCodes"` // string of comma joined ints or int
 }
 
 type ItemConsumable struct {
