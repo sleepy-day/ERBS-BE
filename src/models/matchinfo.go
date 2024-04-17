@@ -1,453 +1,447 @@
 package models
 
-type T struct {
-	Code    int    `json:"code"`
-	Message string `json:"message"`
-}
-
 type UserGame struct {
-	UserNum          int    `json:"userNum"`
-	Nickname         string `json:"nickname"`
-	GameId           int    `json:"gameId"`
-	SeasonId         int    `json:"seasonId"`
-	MatchingMode     int    `json:"matchingMode"`
-	MatchingTeamMode int    `json:"matchingTeamMode"`
-	CharacterNum     int    `json:"characterNum"`
-	SkinCode         int    `json:"skinCode"`
-	CharacterLevel   int    `json:"characterLevel"`
-	GameRank         int    `json:"gameRank"`
-	PlayerKill       int    `json:"playerKill"`
-	PlayerAssistant  int    `json:"playerAssistant"`
-	MonsterKill      int    `json:"monsterKill"`
-	BestWeapon       int    `json:"bestWeapon"`
-	BestWeaponLevel  int    `json:"bestWeaponLevel"`
+	UserNum          int    `json:"userNum" db:"user_num"`
+	Nickname         string `json:"nickname" db:"nickname"`
+	GameId           int    `json:"gameId" db:"game_id"`
+	SeasonId         int    `json:"seasonId" db:"season_id"`
+	MatchingMode     int    `json:"matchingMode" db:"matching_mode"`
+	MatchingTeamMode int    `json:"matchingTeamMode" db:"matching_team_mode"`
+	CharacterNum     int    `json:"characterNum" db:"character_num"`
+	SkinCode         int    `json:"skinCode" db:"skin_code"`
+	CharacterLevel   int    `json:"characterLevel" db:"character_level"`
+	GameRank         int    `json:"gameRank" db:"game_rank"`
+	PlayerKill       int    `json:"playerKill" db:"player_kill"`
+	PlayerAssistant  int    `json:"playerAssistant" db:"player_assistant"`
+	MonsterKill      int    `json:"monsterKill" db:"monster_kill"`
+	BestWeapon       int    `json:"bestWeapon" db:"best_level"`
+	BestWeaponLevel  int    `json:"bestWeaponLevel" db:"best_weapon_level"`
 	MasteryLevel     []struct {
-		None           int `json:"0,omitempty"`
-		Glove          int `json:"1,omitempty"`
-		Tonfa          int `json:"2,omitempty"`
-		Bat            int `json:"3,omitempty"`
-		Whip           int `json:"4,omitempty"`
-		HighAngleFire  int `json:"5,omitempty"`
-		DirectFire     int `json:"6,omitempty"`
-		Bow            int `json:"7,omitempty"`
-		Crossbow       int `json:"8,omitempty"`
-		Pistol         int `json:"9,omitempty"`
-		AssaultRifle   int `json:"10,omitempty"`
-		SniperRifle    int `json:"11,omitempty"`
-		Hammer         int `json:"13,omitempty"`
-		Axe            int `json:"14,omitempty"`
-		OneHandedSword int `json:"15,omitempty"`
-		TwoHandedSword int `json:"16,omitempty"`
-		Polearm        int `json:"17,omitempty"`
-		DualSword      int `json:"18,omitempty"`
-		Spear          int `json:"19,omitempty"`
-		Nunchaku       int `json:"20,omitempty"`
-		Rapier         int `json:"21,omitempty"`
-		Guitar         int `json:"22,omitempty"`
-		Camera         int `json:"23,omitempty"`
-		Arcana         int `json:"24,omitempty"`
-		VFArm          int `json:"25,omitempty"`
-		Craft          int `json:"101"`
-		Search         int `json:"102"`
-		Move           int `json:"103"`
-		Defense        int `json:"201"`
-		Hunt           int `json:"202"`
-	} `json:"masteryLevel"`
+		None           int `json:"0,omitempty" db:"none"`
+		Glove          int `json:"1,omitempty" db:"glove"`
+		Tonfa          int `json:"2,omitempty" db:"tonfa"`
+		Bat            int `json:"3,omitempty" db:"bat"`
+		Whip           int `json:"4,omitempty" db:"whip"`
+		HighAngleFire  int `json:"5,omitempty" db:"high_angle_fire"`
+		DirectFire     int `json:"6,omitempty" db:"direct_fire"`
+		Bow            int `json:"7,omitempty" db:"bow"`
+		Crossbow       int `json:"8,omitempty" db:"crossbow"`
+		Pistol         int `json:"9,omitempty" db:"pistol"`
+		AssaultRifle   int `json:"10,omitempty" db:"assault_rifle"`
+		SniperRifle    int `json:"11,omitempty" db:"sniper_rifle"`
+		Hammer         int `json:"13,omitempty" db:"hammer"`
+		Axe            int `json:"14,omitempty" db:"axe"`
+		OneHandedSword int `json:"15,omitempty" db:"one_handed_sword"`
+		TwoHandedSword int `json:"16,omitempty" db:"two_handed_sword"`
+		Polearm        int `json:"17,omitempty" db:"polearm"`
+		DualSword      int `json:"18,omitempty" db:"dual_sword"`
+		Spear          int `json:"19,omitempty" db:"spear"`
+		Nunchaku       int `json:"20,omitempty" db:"nunchaku"`
+		Rapier         int `json:"21,omitempty" db:"rapier"`
+		Guitar         int `json:"22,omitempty" db:"guitar"`
+		Camera         int `json:"23,omitempty" db:"camera"`
+		Arcana         int `json:"24,omitempty" db:"arcana"`
+		VFArm          int `json:"25,omitempty" db:"vf_arm"`
+		Craft          int `json:"101" db:"craft"`
+		Search         int `json:"102" db:"search"`
+		Move           int `json:"103" db:"move"`
+		Defense        int `json:"201" db:"defense"`
+		Hunt           int `json:"202" db:"hunt"`
+	} `json:"masteryLevel" db:"mastery_level"`
 	Equipment struct {
-		Weapon int `json:"0"`
-		Chest  int `json:"1"`
-		Head   int `json:"2"`
-		Arm    int `json:"3"`
-		Legs   int `json:"4"`
-	} `json:"equipment"`
-	VersionMajor              int            `json:"versionMajor"`
-	VersionMinor              int            `json:"versionMinor"`
-	Language                  string         `json:"language"`
-	SkillLevelInfo            map[string]int `json:"skillLevelInfo"`
-	SkillOrderInfo            map[string]int `json:"skillOrderInfo"`
-	ServerName                string         `json:"serverName"`
-	MaxHp                     int            `json:"maxHp"`
-	MaxSp                     int            `json:"maxSp"`
-	AttackPower               int            `json:"attackPower"`
-	Defense                   int            `json:"defense"`
-	HpRegen                   float64        `json:"hpRegen"`
-	SpRegen                   float64        `json:"spRegen"`
-	AttackSpeed               float64        `json:"attackSpeed"`
-	MoveSpeed                 float64        `json:"moveSpeed"`
-	OutOfCombatMoveSpeed      float64        `json:"outOfCombatMoveSpeed"`
-	SightRange                float64        `json:"sightRange"`
-	AttackRange               float64        `json:"attackRange"`
-	CriticalStrikeChance      int            `json:"criticalStrikeChance"`
-	CriticalStrikeDamage      int            `json:"criticalStrikeDamage"`
-	CoolDownReduction         float64        `json:"coolDownReduction"`
-	LifeSteal                 float64        `json:"lifeSteal"`
-	NormalLifeSteal           float64        `json:"normalLifeSteal"`
-	SkillLifeSteal            int            `json:"skillLifeSteal"`
-	AmplifierToMonster        float64        `json:"amplifierToMonster"`
-	TrapDamage                int            `json:"trapDamage"`
-	BonusCoin                 int            `json:"bonusCoin"`
-	GainExp                   int            `json:"gainExp"`
-	BaseExp                   int            `json:"baseExp"`
-	BonusExp                  int            `json:"bonusExp"`
-	StartDtm                  string         `json:"startDtm"`
-	Duration                  int            `json:"duration"`
-	MmrBefore                 int            `json:"mmrBefore"`
-	MmrGain                   int            `json:"mmrGain"`
-	MmrAfter                  int            `json:"mmrAfter"`
-	PlayTime                  int            `json:"playTime"`
-	WatchTime                 int            `json:"watchTime"`
-	TotalTime                 int            `json:"totalTime"`
-	SurvivableTime            int            `json:"survivableTime"`
-	BotAdded                  int            `json:"botAdded"`
-	BotRemain                 int            `json:"botRemain"`
-	RestrictedAreaAccelerated int            `json:"restrictedAreaAccelerated"`
-	SafeAreas                 int            `json:"safeAreas"`
-	TeamNumber                int            `json:"teamNumber"`
-	PreMade                   int            `json:"preMade"`
+		Weapon int `json:"0" db:"weapon"`
+		Chest  int `json:"1" db:"chest"`
+		Head   int `json:"2" db:"head"`
+		Arm    int `json:"3" db:"arms"`
+		Legs   int `json:"4" db:"legs"`
+	} `json:"equipment" db:"equipment"`
+	VersionMajor              int            `json:"versionMajor" db:"version_major"`
+	VersionMinor              int            `json:"versionMinor" db:"version_minor"`
+	Language                  string         `json:"language" db:"language"`
+	SkillLevelInfo            map[string]int `json:"skillLevelInfo" db:"skill_level_info"`
+	SkillOrderInfo            map[string]int `json:"skillOrderInfo" db:"skill_order_info"`
+	ServerName                string         `json:"serverName" db:"server_name"`
+	MaxHp                     int            `json:"maxHp" db:"max_hp"`
+	MaxSp                     int            `json:"maxSp" db:"max_sp"`
+	AttackPower               int            `json:"attackPower" db:"attack_power"`
+	Defense                   int            `json:"defense" db:"defense"`
+	HpRegen                   float64        `json:"hpRegen" db:"hp_regen"`
+	SpRegen                   float64        `json:"spRegen" db:"sp_regen"`
+	AttackSpeed               float64        `json:"attackSpeed" db:"attack_speed"`
+	MoveSpeed                 float64        `json:"moveSpeed" db:"move_speed"`
+	OutOfCombatMoveSpeed      float64        `json:"outOfCombatMoveSpeed" db:"out_of_combat_move_speed"`
+	SightRange                float64        `json:"sightRange" db:"sight_range"`
+	AttackRange               float64        `json:"attackRange" db:"attack_range"`
+	CriticalStrikeChance      int            `json:"criticalStrikeChance" db:"critical_strike_chance"`
+	CriticalStrikeDamage      int            `json:"criticalStrikeDamage" db:"critical_strike_damage"`
+	CoolDownReduction         float64        `json:"coolDownReduction" db:"cooldown_reduction"`
+	LifeSteal                 float64        `json:"lifeSteal" db:"lifesteal"`
+	NormalLifeSteal           float64        `json:"normalLifeSteal" db:"normal_lifesteal"`
+	SkillLifeSteal            int            `json:"skillLifeSteal" db:"skill_lifesteal"`
+	AmplifierToMonster        float64        `json:"amplifierToMonster" db:"amplifier_to_monster"`
+	TrapDamage                int            `json:"trapDamage" db:"trap_damage"`
+	BonusCoin                 int            `json:"bonusCoin" db:"bonus_coin"`
+	GainExp                   int            `json:"gainExp" db:"gain_exp"`
+	BaseExp                   int            `json:"baseExp" db:"base_exp"`
+	BonusExp                  int            `json:"bonusExp" db:"bonus_exp"`
+	StartDtm                  string         `json:"startDtm" db:"start_dtm"`
+	Duration                  int            `json:"duration" db:"duration"`
+	MmrBefore                 int            `json:"mmrBefore" db:"mmr_before"`
+	MmrGain                   int            `json:"mmrGain" db:"mmr_gain"`
+	MmrAfter                  int            `json:"mmrAfter" db:"mmr_after"`
+	PlayTime                  int            `json:"playTime" db:"play_time"`
+	WatchTime                 int            `json:"watchTime" db:"watch_time"`
+	TotalTime                 int            `json:"totalTime" db:"total_time"`
+	SurvivableTime            int            `json:"survivableTime" db:"survivable_time"`
+	BotAdded                  int            `json:"botAdded" db:"bot_added"`
+	BotRemain                 int            `json:"botRemain" db:"bot_remain"`
+	RestrictedAreaAccelerated int            `json:"restrictedAreaAccelerated" db:"restricted_area_accelerated"`
+	SafeAreas                 int            `json:"safeAreas" db:"safe_areas"`
+	TeamNumber                int            `json:"teamNumber" db:"team_number"`
+	PreMade                   int            `json:"preMade" db:"pre_made"`
 	EventMissionResult        struct {
 	} `json:"eventMissionResult"`
-	GainedNormalMmrKFactor        int `json:"gainedNormalMmrKFactor"`
-	Victory                       int `json:"victory"`
-	CraftUncommon                 int `json:"craftUncommon"`
-	CraftRare                     int `json:"craftRare"`
-	CraftEpic                     int `json:"craftEpic"`
-	CraftLegend                   int `json:"craftLegend"`
-	DamageToPlayer                int `json:"damageToPlayer"`
-	DamageToPlayerTrap            int `json:"damageToPlayer_trap"`
-	DamageToPlayerBasic           int `json:"damageToPlayer_basic"`
-	DamageToPlayerSkill           int `json:"damageToPlayer_skill"`
-	DamageToPlayerItemSkill       int `json:"damageToPlayer_itemSkill"`
-	DamageToPlayerDirect          int `json:"damageToPlayer_direct"`
-	DamageToPlayerUniqueSkill     int `json:"damageToPlayer_uniqueSkill"`
-	DamageFromPlayer              int `json:"damageFromPlayer"`
-	DamageFromPlayerTrap          int `json:"damageFromPlayer_trap"`
-	DamageFromPlayerBasic         int `json:"damageFromPlayer_basic"`
-	DamageFromPlayerSkill         int `json:"damageFromPlayer_skill"`
-	DamageFromPlayerItemSkill     int `json:"damageFromPlayer_itemSkill"`
-	DamageFromPlayerDirect        int `json:"damageFromPlayer_direct"`
-	DamageFromPlayerUniqueSkill   int `json:"damageFromPlayer_uniqueSkill"`
-	DamageToMonster               int `json:"damageToMonster"`
-	DamageToMonsterTrap           int `json:"damageToMonster_trap"`
-	DamageToMonsterBasic          int `json:"damageToMonster_basic"`
-	DamageToMonsterSkill          int `json:"damageToMonster_skill"`
-	DamageToMonsterItemSkill      int `json:"damageToMonster_itemSkill"`
-	DamageToMonsterDirect         int `json:"damageToMonster_direct"`
-	DamageToMonsterUniqueSkill    int `json:"damageToMonster_uniqueSkill"`
-	DamageFromMonster             int `json:"damageFromMonster"`
-	DamageToPlayerShield          int `json:"damageToPlayer_Shield"`
-	DamageOffsetedByShieldPlayer  int `json:"damageOffsetedByShield_Player"`
-	DamageOffsetedByShieldMonster int `json:"damageOffsetedByShield_Monster"`
-	KillMonsters                  struct {
-		Chickens       int `json:"1,omitempty"`
-		Bats           int `json:"2,omitempty"`
-		Boars          int `json:"3,omitempty"`
-		Dogs           int `json:"4,omitempty"`
-		Wolves         int `json:"5,omitempty"`
-		Bears          int `json:"6,omitempty"`
-		Wickeline      int `json:"7,omitempty"`
-		Alpha          int `json:"8,omitempty"`
-		Omega          int `json:"9,omitempty"`
-		Gamma          int `json:"10,omitempty"`
-		MutantChickens int `json:"12,omitempty"` //
-		MutantBats     int `json:"13,omitempty"` //
-		MutantBoars    int `json:"14,omitempty"` //
-		MutantDogs     int `json:"15,omitempty"` // Dont know if these exist
-		MutantWolves   int `json:"16,omitempty"` //
-		MutantBears    int `json:"17,omitempty"` //
-	} `json:"killMonsters"`
-	HealAmount               int     `json:"healAmount"`
-	TeamRecover              int     `json:"teamRecover"`
-	ProtectAbsorb            int     `json:"protectAbsorb"`
-	AddSurveillanceCamera    int     `json:"addSurveillanceCamera"`
-	AddTelephotoCamera       int     `json:"addTelephotoCamera"`
-	RemoveSurveillanceCamera int     `json:"removeSurveillanceCamera"`
-	RemoveTelephotoCamera    int     `json:"removeTelephotoCamera"`
-	UseHyperLoop             int     `json:"useHyperLoop"`
-	UseSecurityConsole       int     `json:"useSecurityConsole"`
-	GiveUp                   int     `json:"giveUp"`
-	TeamSpectator            int     `json:"teamSpectator"`
-	RouteIdOfStart           int     `json:"routeIdOfStart"`
-	RouteSlotId              int     `json:"routeSlotId"`
-	PlaceOfStart             string  `json:"placeOfStart"`
-	MmrAvg                   int     `json:"mmrAvg"`
-	MatchSize                int     `json:"matchSize"`
-	TeamKill                 int     `json:"teamKill"`
-	TotalFieldKill           int     `json:"totalFieldKill"`
-	AccountLevel             int     `json:"accountLevel"`
-	KillerUserNum            int     `json:"killerUserNum"`
-	Killer                   string  `json:"killer"`
-	KillDetail               string  `json:"killDetail,omitempty"`
-	CauseOfDeath             string  `json:"causeOfDeath,omitempty"`
-	PlaceOfDeath             string  `json:"placeOfDeath,omitempty"`
-	KillerCharacter          string  `json:"killerCharacter,omitempty"`
-	KillerWeapon             string  `json:"killerWeapon,omitempty"`
-	KillerUserNum2           int     `json:"killerUserNum2"`
-	Killer2                  string  `json:"killer2,omitempty"`
-	KillDetail2              string  `json:"killDetail2,omitempty"`
-	CauseOfDeath2            string  `json:"causeOfDeath2,omitempty"`
-	PlaceOfDeath2            string  `json:"placeOfDeath2,omitempty"`
-	KillerCharacter2         string  `json:"killerCharacter2,omitempty"`
-	KillerWeapon2            string  `json:"killerWeapon2,omitempty"`
-	KillerUserNum3           int     `json:"killerUserNum3"`
-	Killer3                  string  `json:"killer3,omitempty"`
-	KillDetail3              string  `json:"killDetail3,omitempty"`
-	CauseOfDeath3            string  `json:"causeOfDeath3,omitempty"`
-	PlaceOfDeath3            string  `json:"placeOfDeath3,omitempty"`
-	KillerCharacter3         string  `json:"killerCharacter3,omitempty"`
-	KillerWeapon3            string  `json:"killerWeapon3,omitempty"`
-	FishingCount             int     `json:"fishingCount"`
-	UseEmoticonCount         int     `json:"useEmoticonCount"`
-	ExpireDtm                string  `json:"expireDtm"`
-	TraitFirstCore           int     `json:"traitFirstCore"`
-	TraitFirstSub            []int   `json:"traitFirstSub"`
-	TraitSecondSub           []int   `json:"traitSecondSub"`
-	AirSupplyOpenCount       []int   `json:"airSupplyOpenCount"`
-	FoodCraftCount           []int   `json:"foodCraftCount"`
-	BeverageCraftCount       []int   `json:"beverageCraftCount"`
-	RankPoint                int     `json:"rankPoint"`
-	TotalTurbineTakeOver     int     `json:"totalTurbineTakeOver"`
-	UsedNormalHealPack       int     `json:"usedNormalHealPack"`
-	UsedReinforcedHealPack   int     `json:"usedReinforcedHealPack"`
-	UsedNormalShieldPack     int     `json:"usedNormalShieldPack"`
-	UsedReinforceShieldPack  int     `json:"usedReinforceShieldPack"`
-	TotalVFCredits           []int   `json:"totalVFCredits"`
-	UsedVFCredits            []int   `json:"usedVFCredits"`
-	SumTotalVFCredits        int     `json:"sumTotalVFCredits"`
-	SumUsedVFCredits         int     `json:"sumUsedVFCredits"`
-	CraftMythic              int     `json:"craftMythic"`
-	PlayerDeaths             int     `json:"playerDeaths"`
-	KillGamma                bool    `json:"killGamma"`
-	ScoredPoint              []int   `json:"scoredPoint"`
-	KillDetails              string  `json:"killDetails"`
-	DeathDetails             string  `json:"deathDetails"`
-	KillsPhaseOne            int     `json:"killsPhaseOne"`
-	KillsPhaseTwo            int     `json:"killsPhaseTwo"`
-	KillsPhaseThree          int     `json:"killsPhaseThree"`
-	DeathsPhaseOne           int     `json:"deathsPhaseOne"`
-	DeathsPhaseTwo           int     `json:"deathsPhaseTwo"`
-	DeathsPhaseThree         int     `json:"deathsPhaseThree"`
-	UsedPairLoop             int     `json:"usedPairLoop"`
-	CcTimeToPlayer           float64 `json:"ccTimeToPlayer"`
+	GainedNormalMmrKFactor      int `json:"gainedNormalMmrKFactor" db:"gained_normal_mmr_k_factor"`
+	Victory                     int `json:"victory" db:"victory"`
+	CraftUncommon               int `json:"craftUncommon" db:"craft_uncommon"`
+	CraftRare                   int `json:"craftRare" db:"craft_rare"`
+	CraftEpic                   int `json:"craftEpic" db:"craft_epic"`
+	CraftLegend                 int `json:"craftLegend" db:"craft_legend"`
+	DamageToPlayer              int `json:"damageToPlayer" db:"damage_to_player"`
+	DamageToPlayerTrap          int `json:"damageToPlayer_trap" db:"damage_to_player_trap"`
+	DamageToPlayerBasic         int `json:"damageToPlayer_basic" db:"damage_to_player_basic"`
+	DamageToPlayerSkill         int `json:"damageToPlayer_skill" db:"damage_to_player_skill"`
+	DamageToPlayerItemSkill     int `json:"damageToPlayer_itemSkill" db:"damage_to_player_item_skill"`
+	DamageToPlayerDirect        int `json:"damageToPlayer_direct" db:"damage_to_player_direct"`
+	DamageToPlayerUniqueSkill   int `json:"damageToPlayer_uniqueSkill" db:"damage_to_player_unique_skill"`
+	DamageFromPlayer            int `json:"damageFromPlayer" db:"damage_from_player"`
+	DamageFromPlayerTrap        int `json:"damageFromPlayer_trap" db:"damage_from_player_trap"`
+	DamageFromPlayerBasic       int `json:"damageFromPlayer_basic" db:"damage_from_player_basic"`
+	DamageFromPlayerSkill       int `json:"damageFromPlayer_skill" db:"damage_from_player_skill"`
+	DamageFromPlayerItemSkill   int `json:"damageFromPlayer_itemSkill" db:"damage_from_player_item_skill"`
+	DamageFromPlayerDirect      int `json:"damageFromPlayer_direct" db:"damage_from_player_direct"`
+	DamageFromPlayerUniqueSkill int `json:"damageFromPlayer_uniqueSkill" db:"damage_from_player_unique_skill"`
+	DamageToMonster             int `json:"damageToMonster" db:"damage_to_monster"`
+	DamageToMonsterTrap         int `json:"damageToMonster_trap" db:"damage_to_monster_trap"`
+	DamageToMonsterBasic        int `json:"damageToMonster_basic" db:"damage_to_monster_basic"`
+	DamageToMonsterSkill        int `json:"damageToMonster_skill" db:"damage_to_monster_skill"`
+	DamageToMonsterItemSkill    int `json:"damageToMonster_itemSkill" db:"damage_to_monster_item_skill"`
+	DamageToMonsterDirect       int `json:"damageToMonster_direct" db:"damage_to_monster_direct"`
+	DamageToMonsterUniqueSkill  int `json:"damageToMonster_uniqueSkill" db:"damage_to_monster_unique_skill"`
+	DamageFromMonster           int `json:"damageFromMonster" db:"damage_from_monster"`
+	DamageToPlayerShield        int `json:"damageToPlayer_Shield" db:"damage_to_player_shield"`
+	DamageOffsetByShieldPlayer  int `json:"damageOffsetedByShield_Player" db:"damage_offset_by_shield_player"`
+	DamageOffsetByShieldMonster int `json:"damageOffsetedByShield_Monster" db:"damage_offset_by_shield_monster"`
+	KillMonsters                struct {
+		Chickens       int `json:"1,omitempty" db:"chickens"`
+		Bats           int `json:"2,omitempty" db:"bats"`
+		Boars          int `json:"3,omitempty" db:"boars"`
+		Dogs           int `json:"4,omitempty" db:"dogs"`
+		Wolves         int `json:"5,omitempty" db:"wolves"`
+		Bears          int `json:"6,omitempty" db:"bears"`
+		Wickeline      int `json:"7,omitempty" db:"wickeline"`
+		Alpha          int `json:"8,omitempty" db:"alpha"`
+		Omega          int `json:"9,omitempty" db:"omega"`
+		Gamma          int `json:"10,omitempty" db:"gamma"`
+		MutantChickens int `json:"12,omitempty" db:"mutant_chickens"` //
+		MutantBats     int `json:"13,omitempty" db:"mutant_bats"`     //
+		MutantBoars    int `json:"14,omitempty" db:"mutant_boars"`    //
+		MutantDogs     int `json:"15,omitempty" db:"mutant_dogs"`     // Dont know if these exist
+		MutantWolves   int `json:"16,omitempty" db:"mutant_wolves"`   //
+		MutantBears    int `json:"17,omitempty" db:"mutant_bears"`    //
+	} `json:"killMonsters" db:"kill_monsters"`
+	HealAmount               int     `json:"healAmount" db:"heal_amount"`
+	TeamRecover              int     `json:"teamRecover" db:"team_recover"`
+	ProtectAbsorb            int     `json:"protectAbsorb" db:"protect_absorb"`
+	AddSurveillanceCamera    int     `json:"addSurveillanceCamera" db:"add_surveillance_camera"`
+	AddTelephotoCamera       int     `json:"addTelephotoCamera" db:"add_telephoto_camera"`
+	RemoveSurveillanceCamera int     `json:"removeSurveillanceCamera" db:"remove_surveillance_camera"`
+	RemoveTelephotoCamera    int     `json:"removeTelephotoCamera" db:"remove_telephoto_camera"`
+	UseHyperLoop             int     `json:"useHyperLoop" db:"use_hyperloop"`
+	UseSecurityConsole       int     `json:"useSecurityConsole" db:"use_security_console"`
+	GiveUp                   int     `json:"giveUp" db:"give_up"`
+	TeamSpectator            int     `json:"teamSpectator" db:"team_spectator"`
+	RouteIdOfStart           int     `json:"routeIdOfStart" db:"route_id_of_start"`
+	RouteSlotId              int     `json:"routeSlotId" db:"route_slot_id"`
+	PlaceOfStart             string  `json:"placeOfStart" db:"place_of_start"`
+	MmrAvg                   int     `json:"mmrAvg" db:"mmr_avg"`
+	MatchSize                int     `json:"matchSize" db:"match_size"`
+	TeamKill                 int     `json:"teamKill" db:"team_kill"`
+	TotalFieldKill           int     `json:"totalFieldKill" db:"total_field_kill"`
+	AccountLevel             int     `json:"accountLevel" db:"account_level"`
+	KillerUserNum            int     `json:"killerUserNum" db:"killer_user_num"`
+	Killer                   string  `json:"killer" db:"killer"`
+	KillDetail               string  `json:"killDetail,omitempty" db:"kill_detail"`
+	CauseOfDeath             string  `json:"causeOfDeath,omitempty" db:"cause_of_death"`
+	PlaceOfDeath             string  `json:"placeOfDeath,omitempty" db:"place_of_death"`
+	KillerCharacter          string  `json:"killerCharacter,omitempty" db:"killer_character"`
+	KillerWeapon             string  `json:"killerWeapon,omitempty" db:"killer_weapon"`
+	KillerUserNum2           int     `json:"killerUserNum2" db:"killer_user_num_2"`
+	Killer2                  string  `json:"killer2,omitempty" db:"killer_2"`
+	KillDetail2              string  `json:"killDetail2,omitempty" db:"kill_detail_2"`
+	CauseOfDeath2            string  `json:"causeOfDeath2,omitempty" db:"cause_of_death_2"`
+	PlaceOfDeath2            string  `json:"placeOfDeath2,omitempty" db:"place_of_death_2"`
+	KillerCharacter2         string  `json:"killerCharacter2,omitempty" db:"killer_character_2"`
+	KillerWeapon2            string  `json:"killerWeapon2,omitempty" db:"killer_weapon_2"`
+	KillerUserNum3           int     `json:"killerUserNum3" db:"killer_user_num_3"`
+	Killer3                  string  `json:"killer3,omitempty" db:"killer_3"`
+	KillDetail3              string  `json:"killDetail3,omitempty" db:"kill_detail_3"`
+	CauseOfDeath3            string  `json:"causeOfDeath3,omitempty" db:"cause_of_death_3"`
+	PlaceOfDeath3            string  `json:"placeOfDeath3,omitempty" db:"place_of_death_3"`
+	KillerCharacter3         string  `json:"killerCharacter3,omitempty" db:"killer_character_3"`
+	KillerWeapon3            string  `json:"killerWeapon3,omitempty" db:"killer_weapon_3"`
+	FishingCount             int     `json:"fishingCount" db:"fishing_count"`
+	UseEmoticonCount         int     `json:"useEmoticonCount" db:"use_emoticon_count"`
+	ExpireDtm                string  `json:"expireDtm" db:"expire_dtm"`
+	TraitFirstCore           int     `json:"traitFirstCore" db:"trait_first_core"`
+	TraitFirstSub            []int   `json:"traitFirstSub" db:"trait_first_sub"`
+	TraitSecondSub           []int   `json:"traitSecondSub" db:"trait_second_sub"`
+	AirSupplyOpenCount       []int   `json:"airSupplyOpenCount" db:"air_supply_open_count"`
+	FoodCraftCount           []int   `json:"foodCraftCount" db:"food_craft_count"`
+	BeverageCraftCount       []int   `json:"beverageCraftCount" db:"beverage_craft_count"`
+	RankPoint                int     `json:"rankPoint" db:"rank_point"`
+	TotalTurbineTakeOver     int     `json:"totalTurbineTakeOver" db:"total_turbine_take_over"`
+	UsedNormalHealPack       int     `json:"usedNormalHealPack" db:"used_normal_heal_pack"`
+	UsedReinforcedHealPack   int     `json:"usedReinforcedHealPack" db:"used_reinforced_shield_pack"`
+	UsedNormalShieldPack     int     `json:"usedNormalShieldPack" db:"used_normal_shield_pack"`
+	UsedReinforcedShieldPack int     `json:"usedReinforceShieldPack" db:"used_reinforced_shield_pack"`
+	TotalVFCredits           []int   `json:"totalVFCredits" db:"total_vf_credits"`
+	UsedVFCredits            []int   `json:"usedVFCredits" db:"used_vf_credits"`
+	SumTotalVFCredits        int     `json:"sumTotalVFCredits" db:"sum_total_vf_credits"`
+	SumUsedVFCredits         int     `json:"sumUsedVFCredits" db:"sum_used_vf_credits"`
+	CraftMythic              int     `json:"craftMythic" db:"craft_mythic"`
+	PlayerDeaths             int     `json:"playerDeaths" db:"player_deaths"`
+	KillGamma                bool    `json:"killGamma" db:"kill_gamma"`
+	ScoredPoint              []int   `json:"scoredPoint" db:"scored_point"`
+	KillDetails              string  `json:"killDetails" db:"kill_details"`
+	DeathDetails             string  `json:"deathDetails" db:"death_details"`
+	KillsPhaseOne            int     `json:"killsPhaseOne" db:"kills_phase_one"`
+	KillsPhaseTwo            int     `json:"killsPhaseTwo" db:"kill_phase_two"`
+	KillsPhaseThree          int     `json:"killsPhaseThree" db:"kills_phase_three"`
+	DeathsPhaseOne           int     `json:"deathsPhaseOne" db:"deaths_phase_one"`
+	DeathsPhaseTwo           int     `json:"deathsPhaseTwo" db:"deaths_phase_two"`
+	DeathsPhaseThree         int     `json:"deathsPhaseThree" db:"deaths_phase_three"`
+	UsedPairLoop             int     `json:"usedPairLoop" db:"used_pair_loop"`
+	CcTimeToPlayer           float64 `json:"ccTimeToPlayer" db:"cc_time_to_player"`
 	CreditSource             struct {
-		PreliminaryPhase                    int     `json:"PreliminaryPhase"`
-		TacticalSkillUpgrade                int     `json:"TacticalSkillUpgrade"`
-		TimeElapsedCompensationByMiliSecond float64 `json:"TimeElapsedCompensationByMiliSecond"`
-		TimeElapsedCreditBonusByMiliSecond  float64 `json:"TimeElapsedCreditBonusByMiliSecond"`
-		KillChicken                         int     `json:"KillChicken"`
-		KillBat                             int     `json:"KillBat"`
-		KillBoar                            int     `json:"KillBoar"`
-		KillDog                             int     `json:"KillWildDog"`
-		KillWolf                            int     `json:"KillWolf"`
-		GoldSecurityConsoleAccess           int     `json:"GoldSecurityConsoleAccess,omitempty"`
-		KillMutantBoar                      int     `json:"KillMutantBoar,omitempty"`
-		KillBear                            int     `json:"KillBear,omitempty"`
-		KillMutantChicken                   int     `json:"KillMutantChicken,omitempty"`
-		KillPlayerMerge                     int     `json:"KillPlayerMerge,omitempty"`
-		KillAlpha                           int     `json:"KillAlpha,omitempty"`
-		KillMutantWildDog                   int     `json:"KillMutantWildDog,omitempty"`
-		KillMutantWolf                      int     `json:"KillMutantWolf,omitempty"`
-		TransferConsoleSpecialMaterial      int     `json:"TransferConsoleSpecialMaterial,omitempty"`
-		KillAssistDivideContribute          int     `json:"KillAssistDivideContribute,omitempty"`
-		TransferConsoleRemoteDroneMySelf    int     `json:"TransferConsoleRemoteDroneMySelf,omitempty"`
-		KillMutantBear                      int     `json:"KillMutantBear,omitempty"`
-		ItemBounty                          int     `json:"ItemBounty,omitempty"`
-		KillOmega                           int     `json:"KillOmega,omitempty"`
-		TransferConsoleEscapeKey            int     `json:"TransferConsoleEscapeKey,omitempty"`
-		KillMutantBat                       int     `json:"KillMutantBat,omitempty"`
-		TransferConsoleResurrection         int     `json:"TransferConsoleResurrection,omitempty"`
-		KillWickeline                       int     `json:"KillWickline,omitempty"`
-	} `json:"creditSource"`
-	BoughtInfusion         string `json:"boughtInfusion"`
-	ItemTransferredConsole []int  `json:"itemTransferredConsole"`
-	ItemTransferredDrone   []int  `json:"itemTransferredDrone"`
-	EscapeState            int    `json:"escapeState"`
-	TotalDoubleKill        int    `json:"totalDoubleKill"`
-	TotalTripleKill        int    `json:"totalTripleKill"`
-	TotalQuadraKill        int    `json:"totalQuadraKill"`
-	TotalExtraKill         int    `json:"totalExtraKill"`
-	CollectItemForLog      []int  `json:"collectItemForLog"`
+		PreliminaryPhase                    int     `json:"PreliminaryPhase" db:"preliminary_phase"`
+		TacticalSkillUpgrade                int     `json:"TacticalSkillUpgrade" db:"tactical_skill_upgrade"`
+		TimeElapsedCompensationByMiliSecond float64 `json:"TimeElapsedCompensationByMiliSecond" db:"time_elapsed_compensation_by_ms"`
+		TimeElapsedCreditBonusByMiliSecond  float64 `json:"TimeElapsedCreditBonusByMiliSecond" db:"time_elapsed_credit_bonus_by_ms"`
+		KillChicken                         int     `json:"KillChicken" db:"kill_chicken"`
+		KillBat                             int     `json:"KillBat" db:"kill_bat"`
+		KillBoar                            int     `json:"KillBoar" db:"kill_boar"`
+		KillDog                             int     `json:"KillWildDog" db:"kill_dog"`
+		KillWolf                            int     `json:"KillWolf" db:"kill_wolf"`
+		GoldSecurityConsoleAccess           int     `json:"GoldSecurityConsoleAccess,omitempty" db:"gold_security_console_access"`
+		KillMutantBoar                      int     `json:"KillMutantBoar,omitempty" db:"kill_mutant_boar"`
+		KillBear                            int     `json:"KillBear,omitempty" db:"kilL_bear"`
+		KillMutantChicken                   int     `json:"KillMutantChicken,omitempty" db:"kill_mutant_chicken"`
+		KillPlayerMerge                     int     `json:"KillPlayerMerge,omitempty" db:"kill_player_merge"`
+		KillAlpha                           int     `json:"KillAlpha,omitempty" db:"kill_alpha"`
+		KillMutantWildDog                   int     `json:"KillMutantWildDog,omitempty" db:"kill_mutant_dog"`
+		KillMutantWolf                      int     `json:"KillMutantWolf,omitempty" db:"kill_mutant_wolf"`
+		TransferConsoleSpecialMaterial      int     `json:"TransferConsoleSpecialMaterial,omitempty" db:"transfer_console_special_material"`
+		KillAssistDivideContribute          int     `json:"KillAssistDivideContribute,omitempty" db:"kill_assist_divide_contribute"`
+		TransferConsoleRemoteDroneMySelf    int     `json:"TransferConsoleRemoteDroneMySelf,omitempty" db:"transfer_console_remote_drone_myself"`
+		KillMutantBear                      int     `json:"KillMutantBear,omitempty" db:"kill_mutant_bear"`
+		ItemBounty                          int     `json:"ItemBounty,omitempty" db:"item_bounty"`
+		KillOmega                           int     `json:"KillOmega,omitempty" db:"kill_omega"`
+		TransferConsoleEscapeKey            int     `json:"TransferConsoleEscapeKey,omitempty" db:"transfer_console_escape_key"`
+		KillMutantBat                       int     `json:"KillMutantBat,omitempty" db:"kill_mutant_bat"`
+		TransferConsoleResurrection         int     `json:"TransferConsoleResurrection,omitempty" db:"transfer_console_resurrection"`
+		KillWickeline                       int     `json:"KillWickline,omitempty" db:"kill_wickeline"`
+	} `json:"creditSource" db:"credit_source"`
+	BoughtInfusion         string `json:"boughtInfusion" db:"bought_infusion"`
+	ItemTransferredConsole []int  `json:"itemTransferredConsole" db:"item_transferred_console"`
+	ItemTransferredDrone   []int  `json:"itemTransferredDrone" db:"item_transferred_drone"`
+	EscapeState            int    `json:"escapeState" db:"escape_state"`
+	TotalDoubleKill        int    `json:"totalDoubleKill" db:"total_double_kill"`
+	TotalTripleKill        int    `json:"totalTripleKill" db:"total_triple_kill"`
+	TotalQuadraKill        int    `json:"totalQuadraKill" db:"total_quadra_kill"`
+	TotalExtraKill         int    `json:"totalExtraKill" db:"total_extra_kill"`
+	CollectItemForLog      []int  `json:"collectItemForLog" db:"collect_item_for_log"`
 	EquipFirstItemForLog   struct {
-		Weapon []int `json:"0"`
-		Chest  []int `json:"1"`
-		Head   []int `json:"2"`
-		Arm    []int `json:"3"`
-		Legs   []int `json:"4"`
-	} `json:"equipFirstItemForLog"`
-	BattleZone1AreaCode                     int   `json:"battleZone1AreaCode"`
-	BattleZone1BattleMark                   int   `json:"battleZone1BattleMark"`
-	BattleZone1ItemCode                     []int `json:"battleZone1ItemCode"`
-	BattleZone2AreaCode                     int   `json:"battleZone2AreaCode"`
-	BattleZone2BattleMark                   int   `json:"battleZone2BattleMark"`
-	BattleZone2ItemCode                     []int `json:"battleZone2ItemCode"`
-	BattleZone3AreaCode                     int   `json:"battleZone3AreaCode"`
-	BattleZone3BattleMark                   int   `json:"battleZone3BattleMark"`
-	BattleZone3ItemCode                     []int `json:"battleZone3ItemCode"`
-	BattleZonePlayerKill                    int   `json:"battleZonePlayerKill"`
-	BattleZoneDeaths                        int   `json:"battleZoneDeaths"`
-	BattleZone1Winner                       int   `json:"battleZone1Winner"`
-	BattleZone2Winner                       int   `json:"battleZone2Winner"`
-	BattleZone3Winner                       int   `json:"battleZone3Winner"`
-	BattleZone1BattleMarkCount              int   `json:"battleZone1BattleMarkCount"`
-	BattleZone2BattleMarkCount              int   `json:"battleZone2BattleMarkCount"`
-	BattleZone3BattleMarkCount              int   `json:"battleZone3BattleMarkCount"`
-	TacticalSkillGroup                      int   `json:"tacticalSkillGroup"`
-	TacticalSkillLevel                      int   `json:"tacticalSkillLevel"`
-	TotalGainVFCredit                       int   `json:"totalGainVFCredit"`
-	KillPlayerGainVFCredit                  int   `json:"killPlayerGainVFCredit"`
-	KillChickenGainVFCredit                 int   `json:"killChickenGainVFCredit"`
-	KillBoarGainVFCredit                    int   `json:"killBoarGainVFCredit"`
-	KillWildDogGainVFCredit                 int   `json:"killWildDogGainVFCredit"`
-	KillWolfGainVFCredit                    int   `json:"killWolfGainVFCredit"`
-	KillBearGainVFCredit                    int   `json:"killBearGainVFCredit"`
-	KillOmegaGainVFCredit                   int   `json:"killOmegaGainVFCredit"`
-	KillBatGainVFCredit                     int   `json:"killBatGainVFCredit"`
-	KillWicklineGainVFCredit                int   `json:"killWicklineGainVFCredit"`
-	KillAlphaGainVFCredit                   int   `json:"killAlphaGainVFCredit"`
-	KillItemBountyGainVFCredit              int   `json:"killItemBountyGainVFCredit"`
-	KillDroneGainVFCredit                   int   `json:"killDroneGainVFCredit"`
-	KillGammaGainVFCredit                   int   `json:"killGammaGainVFCredit"`
-	KillTurretGainVFCredit                  int   `json:"killTurretGainVFCredit"`
-	ItemShredderGainVFCredit                int   `json:"itemShredderGainVFCredit"`
-	TotalUseVFCredit                        int   `json:"totalUseVFCredit"`
-	RemoteDroneUseVFCreditMySelf            int   `json:"remoteDroneUseVFCreditMySelf"`
-	RemoteDroneUseVFCreditAlly              int   `json:"remoteDroneUseVFCreditAlly"`
-	TransferConsoleFromMaterialUseVFCredit  int   `json:"transferConsoleFromMaterialUseVFCredit"`
-	TransferConsoleFromEscapeKeyUseVFCredit int   `json:"transferConsoleFromEscapeKeyUseVFCredit"`
-	TransferConsoleFromRevivalUseVFCredit   int   `json:"transferConsoleFromRevivalUseVFCredit"`
-	TacticalSkillUpgradeUseVFCredit         int   `json:"tacticalSkillUpgradeUseVFCredit"`
-	InfusionReRollUseVFCredit               int   `json:"infusionReRollUseVFCredit"`
-	InfusionTraitUseVFCredit                int   `json:"infusionTraitUseVFCredit"`
-	InfusionRelicUseVFCredit                int   `json:"infusionRelicUseVFCredit"`
-	InfusionStoreUseVFCredit                int   `json:"infusionStoreUseVFCredit"`
-	TeamElimination                         int   `json:"teamElimination"`
-	TeamDown                                int   `json:"teamDown"`
-	TeamBattleZoneDown                      int   `json:"teamBattleZoneDown"`
-	TeamRepeatDown                          int   `json:"teamRepeatDown"`
-	AdaptiveForce                           int   `json:"adaptiveForce"`
-	AdaptiveForceAttack                     int   `json:"adaptiveForceAttack"`
-	AdaptiveForceAmplify                    int   `json:"adaptiveForceAmplify"`
-	SkillAmp                                int   `json:"skillAmp"`
-	CampFireCraftUncommon                   int   `json:"campFireCraftUncommon"`
-	CampFireCraftRare                       int   `json:"campFireCraftRare"`
-	CampFireCraftEpic                       int   `json:"campFireCraftEpic"`
-	CampFireCraftLegendary                  int   `json:"campFireCraftLegendary"`
-	CobaltRandomPickRemoveCharacter         int   `json:"cobaltRandomPickRemoveCharacter"`
-	TacticalSkillUseCount                   int   `json:"tacticalSkillUseCount"`
-	CreditRevivalCount                      int   `json:"creditRevivalCount"`
-	CreditRevivedOthersCount                int   `json:"creditRevivedOthersCount"`
-	TimeSpentInBriefingRoom                 int   `json:"timeSpentInBriefingRoom"`
-	IsLeavingBeforeCreditRevivalTerminate   bool  `json:"IsLeavingBeforeCreditRevivalTerminate"`
-	CrGetAnimal                             int   `json:"crGetAnimal"`
-	CrGetMutant                             int   `json:"crGetMutant"`
-	CrGetPhaseStart                         int   `json:"crGetPhaseStart"`
-	CrGetKill                               int   `json:"crGetKill"`
-	CrGetAssist                             int   `json:"crGetAssist"`
-	CrGetTimeElapsed                        int   `json:"crGetTimeElapsed"`
-	CrGetCreditBonus                        int   `json:"crGetCreditBonus"`
-	CrUseRemoteDrone                        int   `json:"crUseRemoteDrone"`
-	CrUseUpgradeTacticalSkill               int   `json:"crUseUpgradeTacticalSkill"`
-	CrUseTreeOfLife                         int   `json:"crUseTreeOfLife"`
-	CrUseMeteorite                          int   `json:"crUseMeteorite"`
-	CrUseMythril                            int   `json:"crUseMythril"`
-	CrUseForceCore                          int   `json:"crUseForceCore"`
-	CrUseVFBloodSample                      int   `json:"crUseVFBloodSample"`
-	CrUseActivationModule                   int   `json:"crUseActivationModule"`
-	CrUseRootkit                            int   `json:"crUseRootkit"`
-	MmrGainInGame                           int   `json:"mmrGainInGame"`
-	MmrLossEntryCost                        int   `json:"mmrLossEntryCost"`
-	PremadeMatchingType                     int   `json:"premadeMatchingType"`
-	ViewContribution                        int   `json:"viewContribution"`
-	UseReconDrone                           int   `json:"useReconDrone"`
-	UseEmpDrone                             int   `json:"useEmpDrone"`
-	ExceptPreMadeTeam                       bool  `json:"exceptPreMadeTeam"`
-	IsLeavingBeforeCreditRevivalTerminate1  bool  `json:"isLeavingBeforeCreditRevivalTerminate"`
+		Weapon []int `json:"0" db:"weapon"`
+		Chest  []int `json:"1" db:"chest"`
+		Head   []int `json:"2" db:"head"`
+		Arm    []int `json:"3" db:"arms"`
+		Legs   []int `json:"4" db:"legs"`
+	} `json:"equipFirstItemForLog" db:"equip_first_item_for_log"`
+	BattleZone1AreaCode                     int   `json:"battleZone1AreaCode" db:"battle_zone_1_area_code"`
+	BattleZone1BattleMark                   int   `json:"battleZone1BattleMark" db:"battle_zone_1_battle_mark"`
+	BattleZone1ItemCode                     []int `json:"battleZone1ItemCode" db:"battle_zone_1_item_code"`
+	BattleZone2AreaCode                     int   `json:"battleZone2AreaCode" db:"battle_zone_2_area_code"`
+	BattleZone2BattleMark                   int   `json:"battleZone2BattleMark" db:"battle_zone_2_battle_mark"`
+	BattleZone2ItemCode                     []int `json:"battleZone2ItemCode" db:"battle_zone_2_item_code"`
+	BattleZone3AreaCode                     int   `json:"battleZone3AreaCode" db:"battle_zone_3_area_code"`
+	BattleZone3BattleMark                   int   `json:"battleZone3BattleMark" db:"battle_zone_3_battle_mark"`
+	BattleZone3ItemCode                     []int `json:"battleZone3ItemCode" db:"battle_zone_3_item_code"`
+	BattleZonePlayerKill                    int   `json:"battleZonePlayerKill" db:"battle_zone_player_kill"`
+	BattleZoneDeaths                        int   `json:"battleZoneDeaths" db:"battle_zone_deaths"`
+	BattleZone1Winner                       int   `json:"battleZone1Winner" db:"battle_zone_1_winner"`
+	BattleZone2Winner                       int   `json:"battleZone2Winner" db:"battle_zone_2_winner"`
+	BattleZone3Winner                       int   `json:"battleZone3Winner" db:"battle_zone_3_winner"`
+	BattleZone1BattleMarkCount              int   `json:"battleZone1BattleMarkCount" db:"battle_zone_1_battle_mark_count"`
+	BattleZone2BattleMarkCount              int   `json:"battleZone2BattleMarkCount" db:"battle_zone_2_battle_mark_count"`
+	BattleZone3BattleMarkCount              int   `json:"battleZone3BattleMarkCount" db:"battle_zone_3_battle_mark_count"`
+	TacticalSkillGroup                      int   `json:"tacticalSkillGroup" db:"tactical_skill_group"`
+	TacticalSkillLevel                      int   `json:"tacticalSkillLevel" db:"tactical_skill_level"`
+	TotalGainVFCredit                       int   `json:"totalGainVFCredit" db:"total_gain_vf_credit"`
+	KillPlayerGainVFCredit                  int   `json:"killPlayerGainVFCredit" db:"kill_player_gain_vf_credit"`
+	KillChickenGainVFCredit                 int   `json:"killChickenGainVFCredit" db:"kill_chicken_gain_vf_credit"`
+	KillBoarGainVFCredit                    int   `json:"killBoarGainVFCredit" db:"kill_boar_gain_vf_credit"`
+	KillWildDogGainVFCredit                 int   `json:"killWildDogGainVFCredit" db:"kill_dog_gain_vf_credit"`
+	KillWolfGainVFCredit                    int   `json:"killWolfGainVFCredit" db:"kill_wolf_gain_vf_credit"`
+	KillBearGainVFCredit                    int   `json:"killBearGainVFCredit" db:"kill_bear_gain_vf_credit"`
+	KillOmegaGainVFCredit                   int   `json:"killOmegaGainVFCredit" db:"kill_omega_gain_vf_credit"`
+	KillBatGainVFCredit                     int   `json:"killBatGainVFCredit" db:"kill_bat_gain_vf_credit"`
+	KillWicklineGainVFCredit                int   `json:"killWicklineGainVFCredit" db:"kill_wickeline_gain_vf_credit"`
+	KillAlphaGainVFCredit                   int   `json:"killAlphaGainVFCredit" db:"kill_alpha_gain_vf_credit"`
+	KillItemBountyGainVFCredit              int   `json:"killItemBountyGainVFCredit" db:"kill_item_bounty_gain_vf_credit"`
+	KillDroneGainVFCredit                   int   `json:"killDroneGainVFCredit" db:"kill_drone_gain_vf_credit"`
+	KillGammaGainVFCredit                   int   `json:"killGammaGainVFCredit" db:"kill_gamma_gain_vf_credit"`
+	KillTurretGainVFCredit                  int   `json:"killTurretGainVFCredit" db:"kill_turret_gain_vf_credit"`
+	ItemShredderGainVFCredit                int   `json:"itemShredderGainVFCredit" db:"item_shredder_gain_vf_credit"`
+	TotalUseVFCredit                        int   `json:"totalUseVFCredit" db:"total_use_vf_credit"`
+	RemoteDroneUseVFCreditMySelf            int   `json:"remoteDroneUseVFCreditMySelf" db:"remote_drone_use_vf_credit_my_self"`
+	RemoteDroneUseVFCreditAlly              int   `json:"remoteDroneUseVFCreditAlly" db:"remote_drone_use_vf_credit_ally"`
+	TransferConsoleFromMaterialUseVFCredit  int   `json:"transferConsoleFromMaterialUseVFCredit" db:"transfer_console_from_material_use_vf_credit"`
+	TransferConsoleFromEscapeKeyUseVFCredit int   `json:"transferConsoleFromEscapeKeyUseVFCredit" db:"transfer_console_from_escape_key_use_vf_credit"`
+	TransferConsoleFromRevivalUseVFCredit   int   `json:"transferConsoleFromRevivalUseVFCredit" db:"transfer_console_from_revival_use_vf_credit"`
+	TacticalSkillUpgradeUseVFCredit         int   `json:"tacticalSkillUpgradeUseVFCredit" db:"tactical_skill_upgrade_use_vf_credit"`
+	InfusionReRollUseVFCredit               int   `json:"infusionReRollUseVFCredit" db:"infusion_reroll_use_vf_credit"`
+	InfusionTraitUseVFCredit                int   `json:"infusionTraitUseVFCredit" db:"infusion_trait_use_vf_credit"`
+	InfusionRelicUseVFCredit                int   `json:"infusionRelicUseVFCredit" db:"infusion_relic_use_vf_credit"`
+	InfusionStoreUseVFCredit                int   `json:"infusionStoreUseVFCredit" db:"infusion_store_use_vf_credit"`
+	TeamElimination                         int   `json:"teamElimination" db:"team_elimination"`
+	TeamDown                                int   `json:"teamDown" db:"team_down"`
+	TeamBattleZoneDown                      int   `json:"teamBattleZoneDown" db:"team_battle_zone_down"`
+	TeamRepeatDown                          int   `json:"teamRepeatDown" db:"team_repeat_down"`
+	AdaptiveForce                           int   `json:"adaptiveForce" db:"adaptive_force"`
+	AdaptiveForceAttack                     int   `json:"adaptiveForceAttack" db:"adaptive_force_attack"`
+	AdaptiveForceAmplify                    int   `json:"adaptiveForceAmplify" db:"adaptive_force_amplify"`
+	SkillAmp                                int   `json:"skillAmp" db:"skilL_amp"`
+	CampFireCraftUncommon                   int   `json:"campFireCraftUncommon" db:"camp_fire_craft_uncommon"`
+	CampFireCraftRare                       int   `json:"campFireCraftRare" db:"camp_fire_craft_rare"`
+	CampFireCraftEpic                       int   `json:"campFireCraftEpic" db:"camp_fire_craft_epic"`
+	CampFireCraftLegendary                  int   `json:"campFireCraftLegendary" db:"camp_fire_craft_legendary"`
+	CobaltRandomPickRemoveCharacter         int   `json:"cobaltRandomPickRemoveCharacter" db:"cobalt_random_pick_remove_character"`
+	TacticalSkillUseCount                   int   `json:"tacticalSkillUseCount" db:"tactical_skill_use_count"`
+	CreditRevivalCount                      int   `json:"creditRevivalCount" db:"credit_revival_count"`
+	CreditRevivedOthersCount                int   `json:"creditRevivedOthersCount" db:"credit_revived_others_count"`
+	TimeSpentInBriefingRoom                 int   `json:"timeSpentInBriefingRoom" db:"time_spent_in_briefing_room"`
+	IsLeavingBeforeCreditRevivalTerminate   bool  `json:"IsLeavingBeforeCreditRevivalTerminate" db:"is_leaving_before_credit_revival_terminate"`
+	CrGetAnimal                             int   `json:"crGetAnimal" db:"cr_get_animal"`
+	CrGetMutant                             int   `json:"crGetMutant" db:"cr_get_mutant"`
+	CrGetPhaseStart                         int   `json:"crGetPhaseStart" db:"cr_get_phase_start"`
+	CrGetKill                               int   `json:"crGetKill" db:"cr_get_kill"`
+	CrGetAssist                             int   `json:"crGetAssist" db:"cr_get_assist"`
+	CrGetTimeElapsed                        int   `json:"crGetTimeElapsed" db:"cr_get_time_elapsed"`
+	CrGetCreditBonus                        int   `json:"crGetCreditBonus" db:"cr_get_credit_bonus"`
+	CrUseRemoteDrone                        int   `json:"crUseRemoteDrone" db:"cr_use_remote_drone"`
+	CrUseUpgradeTacticalSkill               int   `json:"crUseUpgradeTacticalSkill" db:"cr_use_upgrade_tactical_skill"`
+	CrUseTreeOfLife                         int   `json:"crUseTreeOfLife" db:"cr_use_tree_of_life"`
+	CrUseMeteorite                          int   `json:"crUseMeteorite" db:"cr_use_meteorite"`
+	CrUseMythril                            int   `json:"crUseMythril" db:"cr_use_mythril"`
+	CrUseForceCore                          int   `json:"crUseForceCore" db:"cr_use_force_core"`
+	CrUseVFBloodSample                      int   `json:"crUseVFBloodSample" db:"cr_use_vf_blood_sample"`
+	CrUseActivationModule                   int   `json:"crUseActivationModule" db:"cr_use_activation_module"`
+	CrUseRootkit                            int   `json:"crUseRootkit" db:"cr_use_rootkit"`
+	MmrGainInGame                           int   `json:"mmrGainInGame" db:"mmr_gain_in_game"`
+	MmrLossEntryCost                        int   `json:"mmrLossEntryCost" db:"mmr_loss_entry_cost"`
+	PremadeMatchingType                     int   `json:"premadeMatchingType" db:"premade_matching_type"`
+	ViewContribution                        int   `json:"viewContribution" db:"view_contribution"`
+	UseReconDrone                           int   `json:"useReconDrone" db:"use_recon_drone"`
+	UseEmpDrone                             int   `json:"useEmpDrone" db:"use_emp_drone"`
+	ExceptPreMadeTeam                       bool  `json:"exceptPreMadeTeam" db:"except_premade_team"`
 }
 
 type TopRank struct {
-	UserNum     int    `json:"userNum"`
-	Nickname    string `json:"nickname"`
-	Rank        int    `json:"rank"`
-	Mmr         int    `json:"mmr"`
-	UserEmblems []int  `json:"userEmblems"` // mysterious field
+	UserNum     int    `json:"userNum" db:"user_num"`
+	Nickname    string `json:"nickname" db:"nickname"`
+	Rank        int    `json:"rank" db:"rank"`
+	Mmr         int    `json:"mmr" db:"mmr"`
+	UserEmblems []int  `json:"userEmblems" db:"user_emblems"` // mysterious field
 }
 
 type UserRank struct {
-	UserNum  int    `json:"userNum"`
-	Mmr      int    `json:"mmr"`
-	Nickname string `json:"nickname"`
-	Rank     int    `json:"rank"`
+	UserNum  int    `json:"userNum" db:"user_num"`
+	Mmr      int    `json:"mmr" db:"mmr"`
+	Nickname string `json:"nickname" db:"nickname"`
+	Rank     int    `json:"rank" db:"rank"`
 }
 
 type UserInfo struct {
-	UserNum  int    `json:"userNum"`
-	Nickname string `json:"nickname"`
+	UserNum  int    `json:"userNum" db:"user_num"`
+	Nickname string `json:"nickname" db:"nickname"`
 }
 
 type UserStats struct {
-	SeasonId          int     `json:"seasonId"`
-	UserNum           int     `json:"userNum"`
-	MatchingMode      int     `json:"matchingMode"`
-	MatchingTeamMode  int     `json:"matchingTeamMode"`
-	Mmr               int     `json:"mmr"`
-	Nickname          string  `json:"nickname"`
-	Rank              int     `json:"rank"`
-	RankSize          int     `json:"rankSize"`
-	TotalGames        int     `json:"totalGames"`
-	TotalWins         int     `json:"totalWins"`
-	TotalTeamKills    int     `json:"totalTeamKills"`
-	TotalDeaths       int     `json:"totalDeaths"`
-	EscapeCount       int     `json:"escapeCount"`
-	RankPercent       float64 `json:"rankPercent"`
-	AverageRank       float64 `json:"averageRank"`
-	AverageKills      float64 `json:"averageKills"`
-	AverageAssistants float64 `json:"averageAssistants"`
-	AverageHunts      float64 `json:"averageHunts"`
-	Top1              float64 `json:"top1"`
-	Top2              float64 `json:"top2"`
-	Top3              float64 `json:"top3"`
-	Top5              float64 `json:"top5"`
-	Top7              float64 `json:"top7"`
+	SeasonId          int     `json:"seasonId" db:"season_id"`
+	UserNum           int     `json:"userNum" db:"user_num"`
+	MatchingMode      int     `json:"matchingMode" db:"matching_mode"`
+	MatchingTeamMode  int     `json:"matchingTeamMode" db:"matching_team_mode"`
+	Mmr               int     `json:"mmr" db:"mmr"`
+	Nickname          string  `json:"nickname" db:"nickname"`
+	Rank              int     `json:"rank" db:"rank"`
+	RankSize          int     `json:"rankSize" db:"rank_size"`
+	TotalGames        int     `json:"totalGames" db:"total_games"`
+	TotalWins         int     `json:"totalWins" db:"total_wins"`
+	TotalTeamKills    int     `json:"totalTeamKills" db:"total_team_kills"`
+	TotalDeaths       int     `json:"totalDeaths" db:"total_deaths"`
+	EscapeCount       int     `json:"escapeCount" db:"escape_count"`
+	RankPercent       float64 `json:"rankPercent" db:"rank_percent"`
+	AverageRank       float64 `json:"averageRank" db:"average_rank"`
+	AverageKills      float64 `json:"averageKills" db:"average_kills"`
+	AverageAssistants float64 `json:"averageAssistants" db:"average_assistants"`
+	AverageHunts      float64 `json:"averageHunts" db:"average_hunts"`
+	Top1              float64 `json:"top1" db:"top_1"`
+	Top2              float64 `json:"top2" db:"top_2"`
+	Top3              float64 `json:"top3" db:"top_3"`
+	Top5              float64 `json:"top5" db:"top_5"`
+	Top7              float64 `json:"top7" db:"top_7"`
 	CharacterStats    []struct {
-		CharacterCode int `json:"characterCode"`
-		TotalGames    int `json:"totalGames"`
-		Usages        int `json:"usages"`
-		MaxKillings   int `json:"maxKillings"`
-		Top3          int `json:"top3"`
-		Wins          int `json:"wins"`
-		Top3Rate      int `json:"top3Rate"`
-		AverageRank   int `json:"averageRank"`
-	} `json:"characterStats"`
+		CharacterCode int `json:"characterCode" db:"character_code"`
+		TotalGames    int `json:"totalGames" db:"total_games"`
+		Usages        int `json:"usages" db:"usages"`
+		MaxKillings   int `json:"maxKillings" db:"max_killings"`
+		Top3          int `json:"top3" db:"top_3"`
+		Wins          int `json:"wins" db:"wins"`
+		Top3Rate      int `json:"top3Rate" db:"top_3_rate"`
+		AverageRank   int `json:"averageRank" db:"average_rank"`
+	} `json:"characterStats" db:"character_stats"`
 }
 
-type Result struct {
+type WeaponRoute struct {
 	RecommendWeaponRoute struct {
-		Id                     int     `json:"id"`
-		Title                  string  `json:"title"`
-		UserNum                int     `json:"userNum"`
-		UserNickname           string  `json:"userNickname"`
-		CharacterCode          int     `json:"characterCode"`
-		SlotId                 int     `json:"slotId"`
-		WeaponType             int     `json:"weaponType"`
-		WeaponCodes            string  `json:"weaponCodes"`
-		TacticalSkillGroupCode int     `json:"tacticalSkillGroupCode"`
-		Paths                  string  `json:"paths"`
-		Count                  int     `json:"count"`
-		Version                string  `json:"version"`
-		TeamMode               int     `json:"teamMode"`
-		LanguageCode           string  `json:"languageCode"`
-		RouteVersion           int     `json:"routeVersion"`
-		Share                  bool    `json:"share"`
-		UpdateDtm              int64   `json:"updateDtm"`
-		V2Like                 int     `json:"v2Like"`
-		V2WinRate              float64 `json:"v2WinRate"`
-		V2SeasonId             int     `json:"v2SeasonId"`
-		V2AccumulateLike       int     `json:"v2AccumulateLike"`
-		V2AccumulateWinRate    float64 `json:"v2AccumulateWinRate"`
-		V2AccumulateSeasonId   int     `json:"v2AccumulateSeasonId"`
-	} `json:"recommendWeaponRoute"`
+		Id                     int     `json:"id" db:"id"`
+		Title                  string  `json:"title" db:"title"`
+		UserNum                int     `json:"userNum" db:"user_num"`
+		UserNickname           string  `json:"userNickname" db:"user_nickname"`
+		CharacterCode          int     `json:"characterCode" db:"character_code"`
+		SlotId                 int     `json:"slotId" db:"slot_id"`
+		WeaponType             int     `json:"weaponType" db:"weapon_type"`
+		WeaponCodes            string  `json:"weaponCodes" db:"weapon_code"`
+		TacticalSkillGroupCode int     `json:"tacticalSkillGroupCode" db:"tactical_skill_group_code"`
+		Paths                  string  `json:"paths" db:"paths"`
+		Count                  int     `json:"count" db:"count"`
+		Version                string  `json:"version" db:"version"`
+		TeamMode               int     `json:"teamMode" db:"team_mode"`
+		LanguageCode           string  `json:"languageCode" db:"language_code"`
+		RouteVersion           int     `json:"routeVersion" db:"route_version"`
+		Share                  bool    `json:"share" db:"share"`
+		UpdateDtm              int64   `json:"updateDtm" db:"update_dtm"`
+		V2Like                 int     `json:"v2Like" db:"v2_like"`
+		V2WinRate              float64 `json:"v2WinRate" db:"v2_winrate"`
+		V2SeasonId             int     `json:"v2SeasonId" db:"v2_season_id"`
+		V2AccumulateLike       int     `json:"v2AccumulateLike" db:"v2_accumulate_like"`
+		V2AccumulateWinRate    float64 `json:"v2AccumulateWinRate" db:"v2_accumulate_win_rate"`
+		V2AccumulateSeasonId   int     `json:"v2AccumulateSeasonId" db:"v2_accumulate_season_id"`
+	} `json:"recommendWeaponRoute" db:"weapon_route"`
 	RecommendWeaponRouteDesc struct {
-		RecommendWeaponRouteId int    `json:"recommendWeaponRouteId"`
-		SkillPath              string `json:"skillPath,omitempty"`
-		Desc                   string `json:"desc,omitempty"`
-	} `json:"recommendWeaponRouteDesc"`
+		RecommendWeaponRouteId int    `json:"recommendWeaponRouteId" db:"recommended_weapon_route_id"`
+		SkillPath              string `json:"skillPath,omitempty" db:"skill_path"`
+		Desc                   string `json:"desc,omitempty" db:"desc"`
+	} `json:"recommendWeaponRouteDesc" db:"weapon_route_desc"`
 }

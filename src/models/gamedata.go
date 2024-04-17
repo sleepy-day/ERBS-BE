@@ -5,190 +5,190 @@ package models
 //
 
 type ActionCost struct {
-	Code                  int     `json:"code"`
-	Type                  string  `json:"type"`
-	Sp                    int     `json:"sp"`
-	Time1                 float64 `json:"time1"`
-	Time2                 float64 `json:"time2"`
-	ActionWaitTime        float64 `json:"actionWaitTime"`
-	CastingAnimTrigger    string  `json:"castingAnimTrigger"`
-	EffectCancelCondition string  `json:"effectCancelCondition"`
-	CastingBarImgName     string  `json:"castingBarImgName"`
+	Code                  int     `json:"code" db:"code"`
+	Type                  string  `json:"type" db:"type"`
+	Sp                    int     `json:"sp" db:"sp"`
+	Time1                 float64 `json:"time1" db:"time_1"`
+	Time2                 float64 `json:"time2" db:"time_2"`
+	ActionWaitTime        float64 `json:"actionWaitTime" db:"action_wait_time"`
+	CastingAnimTrigger    string  `json:"castingAnimTrigger" db:"casting_anim_trigger"`
+	EffectCancelCondition string  `json:"effectCancelCondition" db:"effect_cancel_condition"`
+	CastingBarImgName     string  `json:"castingBarImgName" db:"casting_bar_img_name"`
 }
 
 type Area struct {
-	Code                     int    `json:"code"`
-	Name                     string `json:"name"`
-	ModeType                 int    `json:"modeType"`
-	MaskCode                 int    `json:"maskCode"`
-	StartingArea             bool   `json:"startingArea"`
-	AreaType                 string `json:"areaType"`
-	IsProvideCollectibleItem bool   `json:"isProvideCollectibleItem"`
-	RouteCalcBitCode         int    `json:"routeCalcBitCode"`
-	IsHyperLoopInstalled     bool   `json:"isHyperLoopInstalled"`
+	Code                     int    `json:"code" db:"code"`
+	Name                     string `json:"name" db:"name"`
+	ModeType                 int    `json:"modeType" db:"mode_type"`
+	MaskCode                 int    `json:"maskCode" db:"mask_code"`
+	StartingArea             bool   `json:"startingArea" db:"starting_area"`
+	AreaType                 string `json:"areaType" db:"area_type"`
+	IsProvideCollectibleItem bool   `json:"isProvideCollectibleItem" db:"is_provide_collectible_item"`
+	RouteCalcBitCode         int    `json:"routeCalcBitCode" db:"route_calc_bit_code"`
+	IsHyperLoopInstalled     bool   `json:"isHyperLoopInstalled" db:"is_hyperloop_installed"`
 }
 
 type BattleZoneReward struct {
-	Code                           int    `json:"code"`
-	ModeType                       int    `json:"modeType"`
-	AreaAttributesCreateEventCount int    `json:"areaAttributesCreateEventCount"`
-	ItemCode                       int    `json:"itemCode"`
-	Type                           string `json:"type"`
-	Value                          int    `json:"value"`
-	Selectable                     bool   `json:"selectable"`
+	Code                           int    `json:"code" db:"code"`
+	ModeType                       int    `json:"modeType" db:"mode_type"`
+	AreaAttributesCreateEventCount int    `json:"areaAttributesCreateEventCount" db:"area_attributes_create_event_count"`
+	ItemCode                       int    `json:"itemCode" db:"item_code"`
+	Type                           string `json:"type" db:"type"`
+	Value                          int    `json:"value" db:"value"`
+	Selectable                     bool   `json:"selectable" db:"selectable"`
 }
 
 type BulletCapacity struct {
-	ItemCode  int     `json:"itemCode"`
-	Capacity  int     `json:"capacity"`
-	LoadType  string  `json:"loadType"`
-	Time      float64 `json:"time"`
-	InitCount int     `json:"initCount"`
-	Count     int     `json:"count"`
+	ItemCode  int     `json:"itemCode" db:"item_code"`
+	Capacity  int     `json:"capacity" db:"capacity"`
+	LoadType  string  `json:"loadType" db:"load_type"`
+	Time      float64 `json:"time" db:"time"`
+	InitCount int     `json:"initCount" db:"init_count"`
+	Count     int     `json:"count" db:"count"`
 }
 
 type Character struct {
-	Code                           int     `json:"code"`
-	MaxHp                          int     `json:"maxHp"`
-	MaxSp                          int     `json:"maxSp"`
-	InitExtraPoint                 int     `json:"initExtraPoint"`
-	MaxExtraPoint                  int     `json:"maxExtraPoint"`
-	AttackPower                    int     `json:"attackPower"`
-	Defense                        int     `json:"defense"`
-	SkillAmp                       int     `json:"skillAmp"`
-	AdaptiveForce                  int     `json:"adaptiveForce"`
-	CriticalStrikeChance           float64 `json:"criticalStrikeChance"`
-	HpRegen                        float64 `json:"hpRegen"`
-	SpRegen                        float64 `json:"spRegen"`
-	AttackSpeed                    float64 `json:"attackSpeed"`
-	AttackSpeedRatio               float64 `json:"attackSpeedRatio"`
-	IncreaseBasicAttackDamageRatio float64 `json:"increaseBasicAttackDamageRatio"`
-	SkillAmpRatio                  float64 `json:"skillAmpRatio"`
-	PreventBasicAttackDamagedRatio float64 `json:"preventBasicAttackDamagedRatio"`
-	PreventSkillDamagedRatio       float64 `json:"preventSkillDamagedRatio"`
-	AttackSpeedLimit               float64 `json:"attackSpeedLimit"`
-	AttackSpeedMin                 float64 `json:"attackSpeedMin"`
-	MoveSpeed                      float64 `json:"moveSpeed"`
-	SightRange                     float64 `json:"sightRange"`
-	Radius                         float64 `json:"radius"`
-	PathingRadius                  float64 `json:"pathingRadius"`
-	UIHeight                       float64 `json:"uiHeight"`
-	InitStateDisplayIndex          int     `json:"initStateDisplayIndex"`
-	LocalScaleInCutscene           int     `json:"localScaleInCutscene"`
-	LocalScaleInVictoryScene       string  `json:"localScaleInVictoryScene"`
-	Resource                       string  `json:"resource"`
-	LobbySubObject                 string  `json:"lobbySubObject"`
-	Name                           string  `json:"name"`
-	StrLearnStartSkill             string  `json:"strLearnStartSkill"`
-	StrUsePointLearnStartSkill     string  `json:"strUsePointLearnStartSkill"`
+	Code                           int     `json:"code" db:"code"`
+	MaxHp                          int     `json:"maxHp" db:"max_hp"`
+	MaxSp                          int     `json:"maxSp" db:"max_sp"`
+	InitExtraPoint                 int     `json:"initExtraPoint" db:"init_extra_point"`
+	MaxExtraPoint                  int     `json:"maxExtraPoint" db:"max_extra_point"`
+	AttackPower                    int     `json:"attackPower" db:"attack_power"`
+	Defense                        int     `json:"defense" db:"defense"`
+	SkillAmp                       int     `json:"skillAmp" db:"skill_amp"`
+	AdaptiveForce                  int     `json:"adaptiveForce" db:"adaptive_force"`
+	CriticalStrikeChance           float64 `json:"criticalStrikeChance" db:"critical_strike_chance"`
+	HpRegen                        float64 `json:"hpRegen" db:"hp_regen"`
+	SpRegen                        float64 `json:"spRegen" db:"sp_regen"`
+	AttackSpeed                    float64 `json:"attackSpeed" db:"attack_speed"`
+	AttackSpeedRatio               float64 `json:"attackSpeedRatio" db:"attack_speed_ratio"`
+	IncreaseBasicAttackDamageRatio float64 `json:"increaseBasicAttackDamageRatio" db:"increase_basic_attack_damage_ratio"`
+	SkillAmpRatio                  float64 `json:"skillAmpRatio" db:"skill_amp_ratio"`
+	PreventBasicAttackDamageRatio  float64 `json:"preventBasicAttackDamagedRatio" db:"prevent_basic_attack_damage_ratio"`
+	PreventSkillDamageRatio        float64 `json:"preventSkillDamagedRatio" db:"prevent_skill_damage_ratio"`
+	AttackSpeedLimit               float64 `json:"attackSpeedLimit" db:"attack_speed_limit"`
+	AttackSpeedMin                 float64 `json:"attackSpeedMin" db:"attack_speed_min"`
+	MoveSpeed                      float64 `json:"moveSpeed" db:"move_speed"`
+	SightRange                     float64 `json:"sightRange" db:"sight_range"`
+	Radius                         float64 `json:"radius" db:"radius"`
+	PathingRadius                  float64 `json:"pathingRadius" db:"pathing_radius"`
+	UIHeight                       float64 `json:"uiHeight" db:"ui_height"`
+	InitStateDisplayIndex          int     `json:"initStateDisplayIndex" db:"init_state_display_index"`
+	LocalScaleInCutscene           int     `json:"localScaleInCutscene" db:"local_scale_in_cutscene"`
+	LocalScaleInVictoryScene       string  `json:"localScaleInVictoryScene" db:"local_scale_in_victory_scene"`
+	Resource                       string  `json:"resource" db:"resource"`
+	LobbySubObject                 string  `json:"lobbySubObject" db:"lobby_sub_object"`
+	Name                           string  `json:"name" db:"name"`
+	StrLearnStartSkill             string  `json:"strLearnStartSkill" db:"str_learn_start_skill"`
+	StrUsePointLearnStartSkill     string  `json:"strUsePointLearnStartSkill" db:"str_use_point_learn_start_skill"`
 }
 
 type CharacterAttributes struct {
-	Character         string `json:"character"`
-	CharacterCode     int    `json:"characterCode"`
-	Mastery           string `json:"mastery"`
-	ControlDifficulty int    `json:"controlDifficulty"`
-	Attack            int    `json:"attack"`
-	Defense           int    `json:"defense"`
-	Disruptor         int    `json:"disruptor"`
-	Move              int    `json:"move"`
-	Assistance        int    `json:"assistance"`
+	Character         string `json:"character" db:"character"`
+	CharacterCode     int    `json:"characterCode" db:"character_code"`
+	Mastery           string `json:"mastery" db:"mastery"`
+	ControlDifficulty int    `json:"controlDifficulty" db:"control_difficulty"`
+	Attack            int    `json:"attack" db:"attack"`
+	Defense           int    `json:"defense" db:"defense"`
+	Disruptor         int    `json:"disruptor" db:"disruptor"`
+	Move              int    `json:"move" db:"move"`
+	Assistance        int    `json:"assistance" db:"assistance"`
 }
 
 type CharacterExp struct {
-	Level      int `json:"level"`
-	LevelUpExp int `json:"levelUpExp"`
+	Level      int `json:"level" db:"level"`
+	LevelUpExp int `json:"levelUpExp" db:"level_up_exp"`
 }
 
 type CharacterLevelUpStat struct {
-	Code                           int     `json:"code"`
-	MaxHp                          int     `json:"maxHp"`
-	MaxSp                          int     `json:"maxSp"`
-	SkillAmp                       int     `json:"skillAmp"`
-	AdaptiveForce                  int     `json:"adaptiveForce"`
-	AttackPower                    float64 `json:"attackPower"`
-	Defense                        float64 `json:"defense"`
-	CriticalChance                 float64 `json:"criticalChance"`
-	HpRegen                        float64 `json:"hpRegen"`
-	SpRegen                        float64 `json:"spRegen"`
-	AttackSpeed                    float64 `json:"attackSpeed"`
-	MoveSpeed                      float64 `json:"moveSpeed"`
-	AttackSpeedRatio               float64 `json:"attackSpeedRatio"`
-	IncreaseBasicAttackDamageRatio float64 `json:"increaseBasicAttackDamageRatio"`
-	SkillAmpRatio                  float64 `json:"skillAmpRatio"`
-	PreventBasicAttackDamagedRatio float64 `json:"preventBasicAttackDamagedRatio"`
-	PreventSkillDamagedRatio       float64 `json:"preventSkillDamagedRatio"`
-	Name                           string  `json:"name"`
+	Code                           int     `json:"code" db:"code"`
+	MaxHp                          int     `json:"maxHp" db:"max_hp"`
+	MaxSp                          int     `json:"maxSp" db:"max_sp"`
+	SkillAmp                       int     `json:"skillAmp" db:"skill_amp"`
+	AdaptiveForce                  int     `json:"adaptiveForce" db:"adaptive_force"`
+	AttackPower                    float64 `json:"attackPower" db:"attack_power"`
+	Defense                        float64 `json:"defense" db:"defense"`
+	CriticalChance                 float64 `json:"criticalChance" db:"critical_strike_chance"`
+	HpRegen                        float64 `json:"hpRegen" db:"hp_regen"`
+	SpRegen                        float64 `json:"spRegen" db:"sp_regen"`
+	AttackSpeed                    float64 `json:"attackSpeed" db:"attack_speed"`
+	MoveSpeed                      float64 `json:"moveSpeed" db:"move_speed"`
+	AttackSpeedRatio               float64 `json:"attackSpeedRatio" db:"attack_speed_ratio"`
+	IncreaseBasicAttackDamageRatio float64 `json:"increaseBasicAttackDamageRatio" db:"increase_basic_attack_damage_ratio"`
+	SkillAmpRatio                  float64 `json:"skillAmpRatio" db:"skill_amp_ratio"`
+	PreventBasicAttackDamageRatio  float64 `json:"preventBasicAttackDamagedRatio" db:"prevent_basic_attack_damage_ratio"`
+	PreventSkillDamageRatio        float64 `json:"preventSkillDamagedRatio" db:"prevent_skill_damage_ratio"`
+	Name                           string  `json:"name" db:"name"`
 }
 
 type ItemArmor struct {
-	Code                                               int     `json:"code"`
-	MakeMaterial1                                      int     `json:"makeMaterial1"`
-	MakeMaterial2                                      int     `json:"makeMaterial2"`
-	CreditValueWhenConvertedToBounty                   int     `json:"creditValueWhenConvertedToBounty"`
-	ManufacturableType                                 int     `json:"manufacturableType"`
-	AttackPower                                        int     `json:"attackPower"`
-	AttackPowerByLv                                    int     `json:"attackPowerByLv"`
-	Defense                                            int     `json:"defense"`
-	DefenseByLv                                        int     `json:"defenseByLv"`
-	SkillAmp                                           int     `json:"skillAmp"`
-	SkillAmpByLevel                                    int     `json:"skillAmpByLevel"`
-	AdaptiveForce                                      int     `json:"adaptiveForce"`
-	AdaptiveForceByLevel                               int     `json:"adaptiveForceByLevel"`
-	MaxHp                                              int     `json:"maxHp"`
-	MaxHpByLv                                          int     `json:"maxHpByLv"`
-	MaxSp                                              int     `json:"maxSp"`
-	PreventCriticalStrikeDamaged                       int     `json:"preventCriticalStrikeDamaged"`
-	AttackRange                                        int     `json:"attackRange"`
-	IncreaseBasicAttackDamage                          int     `json:"increaseBasicAttackDamage"`
-	IncreaseBasicAttackDamageByLv                      int     `json:"increaseBasicAttackDamageByLv"`
-	PreventBasicAttackDamaged                          int     `json:"preventBasicAttackDamaged"`
-	PreventBasicAttackDamagedByLv                      int     `json:"preventBasicAttackDamagedByLv"`
-	IncreaseBasicAttackDamageRatio                     int     `json:"increaseBasicAttackDamageRatio"`
-	PreventSkillDamaged                                int     `json:"preventSkillDamaged"`
-	PreventSkillDamagedByLv                            int     `json:"preventSkillDamagedByLv"`
-	PenetrationDefense                                 int     `json:"penetrationDefense"`
-	TrapDamageReduce                                   int     `json:"trapDamageReduce"`
-	UniqueAttackRange                                  int     `json:"uniqueAttackRange"`
-	UniquePenetrationDefense                           int     `json:"uniquePenetrationDefense"`
-	ItemUsableValueList                                int     `json:"itemUsableValueList"`
-	ExclusiveProducer                                  int     `json:"exclusiveProducer"`
-	ModeType                                           int     `json:"modeType"`
-	Stackable                                          int     `json:"stackable"`
-	InitialCount                                       int     `json:"initialCount"`
-	SightRange                                         int     `json:"sightRange"`
-	HpRegenRatio                                       float64 `json:"hpRegenRatio"`
-	HpRegen                                            float64 `json:"hpRegen"`
-	SpRegenRatio                                       float64 `json:"spRegenRatio"`
-	SpRegen                                            float64 `json:"spRegen"`
-	AttackSpeedRatio                                   float64 `json:"attackSpeedRatio"`
-	AttackSpeedRatioByLv                               float64 `json:"attackSpeedRatioByLv"`
-	CriticalStrikeChance                               float64 `json:"criticalStrikeChance"`
-	CriticalStrikeDamage                               float64 `json:"criticalStrikeDamage"`
-	SkillAmpRatio                                      float64 `json:"skillAmpRatio"`
-	SkillAmpRatioByLevel                               float64 `json:"skillAmpRatioByLevel"`
-	CooldownReduction                                  float64 `json:"cooldownReduction"`
-	CooldownLimit                                      float64 `json:"cooldownLimit"`
-	LifeSteal                                          float64 `json:"lifeSteal"`
-	NormalLifeSteal                                    float64 `json:"normalLifeSteal"`
-	SkillLifeSteal                                     float64 `json:"skillLifeSteal"`
-	MoveSpeed                                          float64 `json:"moveSpeed"`
-	MoveSpeedOutOfCombat                               float64 `json:"moveSpeedOutOfCombat"`
-	UniqueHpHealedIncreaseRatio                        float64 `json:"uniqueHpHealedIncreaseRatio"`
-	UniqueCooldownLimit                                float64 `json:"uniqueCooldownLimit"`
-	UniqueTenacity                                     float64 `json:"uniqueTenacity"`
-	UniqueMoveSpeed                                    float64 `json:"uniqueMoveSpeed"`
-	PreventBasicAttackDamagedRatio                     float64 `json:"preventBasicAttackDamagedRatio"`
-	PreventBasicAttackDamagedRatioByLv                 float64 `json:"preventBasicAttackDamagedRatioByLv"`
-	PreventSkillDamagedRatio                           float64 `json:"preventSkillDamagedRatio"`
-	PreventSkillDamagedRatioByLv                       float64 `json:"preventSkillDamagedRatioByLv"`
-	PenetrationDefenseRatio                            float64 `json:"penetrationDefenseRatio"`
-	TrapDamageReduceRatio                              float64 `json:"trapDamageReduceRatio"`
-	HpHealedIncreaseRatio                              float64 `json:"hpHealedIncreaseRatio"`
-	HealerGiveHpHealRatio                              float64 `json:"healerGiveHpHealRatio"`
-	UniquePenetrationDefenseRatio                      float64 `json:"uniquePenetrationDefenseRatio"`
-	UniqueLifeSteal                                    float64 `json:"uniqueLifeSteal"`
-	UniqueSkillAmpRatio                                float64 `json:"uniqueSkillAmpRatio"`
+	Code                                               int     `json:"code" db:"code"`
+	MakeMaterial1                                      int     `json:"makeMaterial1" db:"make_material_1"`
+	MakeMaterial2                                      int     `json:"makeMaterial2" db:"make_material_2"`
+	CreditValueWhenConvertedToBounty                   int     `json:"creditValueWhenConvertedToBounty" db:"credit_value_when_converted_to_bounty"`
+	ManufacturableType                                 int     `json:"manufacturableType" db:"manufacturable_type"`
+	AttackPower                                        int     `json:"attackPower" db:"attack_power"`
+	AttackPowerByLv                                    int     `json:"attackPowerByLv" db:"attack_power_by_lv"`
+	Defense                                            int     `json:"defense" db:"defense"`
+	DefenseByLv                                        int     `json:"defenseByLv" db:"defense_by_lv"`
+	SkillAmp                                           int     `json:"skillAmp" db:"skill_amp"`
+	SkillAmpByLevel                                    int     `json:"skillAmpByLevel" db:"skill_amp_by_level"`
+	AdaptiveForce                                      int     `json:"adaptiveForce" db:"adaptive_force"`
+	AdaptiveForceByLevel                               int     `json:"adaptiveForceByLevel" db:"adaptive_force_by_level"`
+	MaxHp                                              int     `json:"maxHp" db:"max_hp"`
+	MaxHpByLv                                          int     `json:"maxHpByLv" db:"max_hp_by_lv"`
+	MaxSp                                              int     `json:"maxSp" db:"max_sp"`
+	PreventCriticalStrikeDamage                        int     `json:"preventCriticalStrikeDamaged" db:"prevent_critical_strike_damage"`
+	AttackRange                                        int     `json:"attackRange" db:"attack_range"`
+	IncreaseBasicAttackDamage                          int     `json:"increaseBasicAttackDamage" db:"increase_basic_attack_damage"`
+	IncreaseBasicAttackDamageByLv                      int     `json:"increaseBasicAttackDamageByLv" db:"increase_basic_attack_damage_by_lv"`
+	PreventBasicAttackDamage                           int     `json:"preventBasicAttackDamaged" db:"prevent_basic_attack_damage"`
+	PreventBasicAttackDamageByLv                       int     `json:"preventBasicAttackDamagedByLv" db:"prevent_basic_attack_damage_by_lv"`
+	IncreaseBasicAttackDamageRatio                     int     `json:"increaseBasicAttackDamageRatio" db:"increase_basic_attack_damage_ratio"`
+	PreventSkillDamage                                 int     `json:"preventSkillDamaged" db:"prevent_skill_damage"`
+	PreventSkillDamageByLv                             int     `json:"preventSkillDamagedByLv" db:"prevent_skill_damage_by_lv"`
+	PenetrationDefense                                 int     `json:"penetrationDefense" db:"penetration_defense"`
+	TrapDamageReduce                                   int     `json:"trapDamageReduce" db:"trap_damage_reduce"`
+	UniqueAttackRange                                  int     `json:"uniqueAttackRange" db:"unique_attack_range"`
+	UniquePenetrationDefense                           int     `json:"uniquePenetrationDefense" db:"unique_penetration_defense"`
+	ItemUsableValueList                                int     `json:"itemUsableValueList" db:"item_usable_value_list"`
+	ExclusiveProducer                                  int     `json:"exclusiveProducer" db:"exclusive_producer"`
+	ModeType                                           int     `json:"modeType" db:"mode_type"`
+	Stackable                                          int     `json:"stackable" db:"stackable"`
+	InitialCount                                       int     `json:"initialCount" db:"initial_count"`
+	SightRange                                         int     `json:"sightRange" db:"sight_range"`
+	HpRegenRatio                                       float64 `json:"hpRegenRatio" db:"hp_regen_ratio"`
+	HpRegen                                            float64 `json:"hpRegen" db:"hp_regen"`
+	SpRegenRatio                                       float64 `json:"spRegenRatio" db:"sp_regen_ratio"`
+	SpRegen                                            float64 `json:"spRegen" db:"sp_regen"`
+	AttackSpeedRatio                                   float64 `json:"attackSpeedRatio" db:"attack_speed_ratio"`
+	AttackSpeedRatioByLv                               float64 `json:"attackSpeedRatioByLv" db:"attack_speed_ratio_by_lv"`
+	CriticalStrikeChance                               float64 `json:"criticalStrikeChance" db:"critical_strike_chance"`
+	CriticalStrikeDamage                               float64 `json:"criticalStrikeDamage" db:"critical_strike_damage"`
+	SkillAmpRatio                                      float64 `json:"skillAmpRatio" db:"skill_amp_ratio"`
+	SkillAmpRatioByLevel                               float64 `json:"skillAmpRatioByLevel" db:"skill_amp_ratio_by_level"`
+	CooldownReduction                                  float64 `json:"cooldownReduction" db:"cooldown_reduction"`
+	CooldownLimit                                      float64 `json:"cooldownLimit" db:"cooldown_limit"`
+	LifeSteal                                          float64 `json:"lifeSteal" db:"lifesteal"`
+	NormalLifeSteal                                    float64 `json:"normalLifeSteal" db:"normal_lifesteal"`
+	SkillLifeSteal                                     float64 `json:"skillLifeSteal" db:"skill_lifesteal"`
+	MoveSpeed                                          float64 `json:"moveSpeed" db:"move_speed"`
+	MoveSpeedOutOfCombat                               float64 `json:"moveSpeedOutOfCombat" db:"move_speed_out_of_combat"`
+	UniqueHpHealedIncreaseRatio                        float64 `json:"uniqueHpHealedIncreaseRatio" db:"unique_hp_healed_increase_ratio"`
+	UniqueCooldownLimit                                float64 `json:"uniqueCooldownLimit" db:"unique_cooldown_limit"`
+	UniqueTenacity                                     float64 `json:"uniqueTenacity" db:"unique_tenacity"`
+	UniqueMoveSpeed                                    float64 `json:"uniqueMoveSpeed" db:"unique_move_speed"`
+	PreventBasicAttackDamageRatio                      float64 `json:"preventBasicAttackDamagedRatio" db:"prevent_basic_attack_damage_ratio"`
+	PreventBasicAttackDamageRatioByLv                  float64 `json:"preventBasicAttackDamagedRatioByLv" db:"prevent_basic_attack_damage_ratio_by_lv"`
+	PreventSkillDamageRatio                            float64 `json:"preventSkillDamagedRatio" db:"prevent_skill_damage_ratio"`
+	PreventSkillDamageRatioByLv                        float64 `json:"preventSkillDamagedRatioByLv" db:"prevent_skill_damage_ratio_by_lv"`
+	PenetrationDefenseRatio                            float64 `json:"penetrationDefenseRatio" db:"penetration_defense_ratio"`
+	TrapDamageReduceRatio                              float64 `json:"trapDamageReduceRatio" db:"trap_damage_reduce_ratio"`
+	HpHealedIncreaseRatio                              float64 `json:"hpHealedIncreaseRatio" db:"hp_healed_increase_ratio"`
+	HealerGiveHpHealRatio                              float64 `json:"healerGiveHpHealRatio" db:"healer_give_hp_heal_ratio"`
+	UniquePenetrationDefenseRatio                      float64 `json:"uniquePenetrationDefenseRatio" db:"unique_penetration_defense_ratio"`
+	UniqueLifeSteal                                    float64 `json:"uniqueLifeSteal" db:"unique_lifesteal"`
+	UniqueSkillAmpRatio                                float64 `json:"uniqueSkillAmpRatio" db:"unique_skill_amp_ratio"`
 	IncreaseBasicAttackDamageRatioByLv                 float64 `json:"increaseBasicAttackDamageRatioByLv" db:"increase_basic_attack_damage_ratio_by_lv"`
 	IsCompletedItem                                    bool    `json:"isCompletedItem" db:"is_completed_item"`
 	AlertInSpectator                                   bool    `json:"alertInSpectator" db:"alert_in_spectator"`
