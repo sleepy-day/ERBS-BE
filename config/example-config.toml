@@ -1,0 +1,10 @@
+# Modify the config here and copy the file to config.toml, .gitignore will exclude this from being uploaded
+
+title = "ERBS-BE Config"
+
+[database]
+server = "127.0.0.1"
+port = 5432
+name = "erbs"
+username = "<put username here>"
+password = "<put password here>"
