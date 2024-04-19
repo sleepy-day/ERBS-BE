@@ -1,6 +1,7 @@
 package models
 
 type UserGame struct {
+	Id               int64  `db:"id"`
 	UserNum          int    `json:"userNum" db:"user_num"`
 	Nickname         string `json:"nickname" db:"nickname"`
 	GameId           int    `json:"gameId" db:"game_id"`
@@ -14,7 +15,7 @@ type UserGame struct {
 	PlayerKill       int    `json:"playerKill" db:"player_kill"`
 	PlayerAssistant  int    `json:"playerAssistant" db:"player_assistant"`
 	MonsterKill      int    `json:"monsterKill" db:"monster_kill"`
-	BestWeapon       int    `json:"bestWeapon" db:"best_level"`
+	BestWeapon       int    `json:"bestWeapon" db:"best_weapon"`
 	BestWeaponLevel  int    `json:"bestWeaponLevel" db:"best_weapon_level"`
 	MasteryLevel     []struct {
 		None           int `json:"0,omitempty" db:"none"`
@@ -202,7 +203,7 @@ type UserGame struct {
 	RankPoint                int     `json:"rankPoint" db:"rank_point"`
 	TotalTurbineTakeOver     int     `json:"totalTurbineTakeOver" db:"total_turbine_take_over"`
 	UsedNormalHealPack       int     `json:"usedNormalHealPack" db:"used_normal_heal_pack"`
-	UsedReinforcedHealPack   int     `json:"usedReinforcedHealPack" db:"used_reinforced_shield_pack"`
+	UsedReinforcedHealPack   int     `json:"usedReinforcedHealPack" db:"used_reinforced_heal_pack"`
 	UsedNormalShieldPack     int     `json:"usedNormalShieldPack" db:"used_normal_shield_pack"`
 	UsedReinforcedShieldPack int     `json:"usedReinforceShieldPack" db:"used_reinforced_shield_pack"`
 	TotalVFCredits           []int   `json:"totalVFCredits" db:"total_vf_credits"`
@@ -216,7 +217,7 @@ type UserGame struct {
 	KillDetails              string  `json:"killDetails" db:"kill_details"`
 	DeathDetails             string  `json:"deathDetails" db:"death_details"`
 	KillsPhaseOne            int     `json:"killsPhaseOne" db:"kills_phase_one"`
-	KillsPhaseTwo            int     `json:"killsPhaseTwo" db:"kill_phase_two"`
+	KillsPhaseTwo            int     `json:"killsPhaseTwo" db:"kills_phase_two"`
 	KillsPhaseThree          int     `json:"killsPhaseThree" db:"kills_phase_three"`
 	DeathsPhaseOne           int     `json:"deathsPhaseOne" db:"deaths_phase_one"`
 	DeathsPhaseTwo           int     `json:"deathsPhaseTwo" db:"deaths_phase_two"`
@@ -321,7 +322,7 @@ type UserGame struct {
 	AdaptiveForce                           int   `json:"adaptiveForce" db:"adaptive_force"`
 	AdaptiveForceAttack                     int   `json:"adaptiveForceAttack" db:"adaptive_force_attack"`
 	AdaptiveForceAmplify                    int   `json:"adaptiveForceAmplify" db:"adaptive_force_amplify"`
-	SkillAmp                                int   `json:"skillAmp" db:"skilL_amp"`
+	SkillAmp                                int   `json:"skillAmp" db:"skill_amp"`
 	CampFireCraftUncommon                   int   `json:"campFireCraftUncommon" db:"camp_fire_craft_uncommon"`
 	CampFireCraftRare                       int   `json:"campFireCraftRare" db:"camp_fire_craft_rare"`
 	CampFireCraftEpic                       int   `json:"campFireCraftEpic" db:"camp_fire_craft_epic"`
@@ -358,6 +359,7 @@ type UserGame struct {
 }
 
 type TopRank struct {
+	Id          int64  `db:"id"`
 	UserNum     int    `json:"userNum" db:"user_num"`
 	Nickname    string `json:"nickname" db:"nickname"`
 	Rank        int    `json:"rank" db:"rank"`
@@ -366,6 +368,7 @@ type TopRank struct {
 }
 
 type UserRank struct {
+	Id       int64  `db:"id"`
 	UserNum  int    `json:"userNum" db:"user_num"`
 	Mmr      int    `json:"mmr" db:"mmr"`
 	Nickname string `json:"nickname" db:"nickname"`
@@ -373,11 +376,13 @@ type UserRank struct {
 }
 
 type UserInfo struct {
+	Id       int64  `db:"id"`
 	UserNum  int    `json:"userNum" db:"user_num"`
 	Nickname string `json:"nickname" db:"nickname"`
 }
 
 type UserStats struct {
+	Id                int64   `db:"id"`
 	SeasonId          int     `json:"seasonId" db:"season_id"`
 	UserNum           int     `json:"userNum" db:"user_num"`
 	MatchingMode      int     `json:"matchingMode" db:"matching_mode"`
@@ -414,6 +419,7 @@ type UserStats struct {
 }
 
 type WeaponRoute struct {
+	Id                   int64 `db:"id"`
 	RecommendWeaponRoute struct {
 		Id                     int     `json:"id" db:"id"`
 		Title                  string  `json:"title" db:"title"`

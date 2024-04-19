@@ -16,7 +16,7 @@ func GetDatabaseConfig() m.ErbsConfig {
 }
 
 func GetConnectionString(conf m.ErbsConfig) string {
-	return fmt.Sprintf("postgresql://%s:%s@%s:%d/%s",
+	return fmt.Sprintf("user=%s password=%s host=%s port=%d dbname=%s sslmode=disable",
 		conf.Database.Username,
 		conf.Database.Password,
 		conf.Database.Server,

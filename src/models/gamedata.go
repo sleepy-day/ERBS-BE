@@ -1,10 +1,17 @@
 package models
 
+import (
+	"strconv"
+	"strings"
+	"time"
+)
+
 //
 // Game Data API structs
 //
 
 type ActionCost struct {
+	Id                    int64   `db:"id"`
 	Code                  int     `json:"code" db:"code"`
 	Type                  string  `json:"type" db:"type"`
 	Sp                    int     `json:"sp" db:"sp"`
@@ -17,6 +24,7 @@ type ActionCost struct {
 }
 
 type Area struct {
+	Id                       int64  `db:"id"`
 	Code                     int    `json:"code" db:"code"`
 	Name                     string `json:"name" db:"name"`
 	ModeType                 int    `json:"modeType" db:"mode_type"`
@@ -29,6 +37,7 @@ type Area struct {
 }
 
 type BattleZoneReward struct {
+	Id                             int64  `db:"id"`
 	Code                           int    `json:"code" db:"code"`
 	ModeType                       int    `json:"modeType" db:"mode_type"`
 	AreaAttributesCreateEventCount int    `json:"areaAttributesCreateEventCount" db:"area_attributes_create_event_count"`
@@ -39,6 +48,7 @@ type BattleZoneReward struct {
 }
 
 type BulletCapacity struct {
+	Id        int64   `db:"id"`
 	ItemCode  int     `json:"itemCode" db:"item_code"`
 	Capacity  int     `json:"capacity" db:"capacity"`
 	LoadType  string  `json:"loadType" db:"load_type"`
@@ -48,6 +58,7 @@ type BulletCapacity struct {
 }
 
 type Character struct {
+	Id                             int64   `db:"id"`
 	Code                           int     `json:"code" db:"code"`
 	MaxHp                          int     `json:"maxHp" db:"max_hp"`
 	MaxSp                          int     `json:"maxSp" db:"max_sp"`
@@ -84,6 +95,7 @@ type Character struct {
 }
 
 type CharacterAttributes struct {
+	Id                int64  `db:"id"`
 	Character         string `json:"character" db:"character"`
 	CharacterCode     int    `json:"characterCode" db:"character_code"`
 	Mastery           string `json:"mastery" db:"mastery"`
@@ -96,11 +108,13 @@ type CharacterAttributes struct {
 }
 
 type CharacterExp struct {
-	Level      int `json:"level" db:"level"`
-	LevelUpExp int `json:"levelUpExp" db:"level_up_exp"`
+	Id         int64 `db:"id"`
+	Level      int   `json:"level" db:"level"`
+	LevelUpExp int   `json:"levelUpExp" db:"level_up_exp"`
 }
 
 type CharacterLevelUpStat struct {
+	Id                             int64   `db:"id"`
 	Code                           int     `json:"code" db:"code"`
 	MaxHp                          int     `json:"maxHp" db:"max_hp"`
 	MaxSp                          int     `json:"maxSp" db:"max_sp"`
@@ -122,6 +136,7 @@ type CharacterLevelUpStat struct {
 }
 
 type ItemArmor struct {
+	Id                                                 int64   `db:"id"`
 	Code                                               int     `json:"code" db:"code"`
 	MakeMaterial1                                      int     `json:"makeMaterial1" db:"make_material_1"`
 	MakeMaterial2                                      int     `json:"makeMaterial2" db:"make_material_2"`
@@ -206,6 +221,7 @@ type ItemArmor struct {
 }
 
 type CharacterMastery struct {
+	Id        int64  `db:"id"`
 	Code      int    `json:"code" db:"code"`
 	Weapon1   string `json:"weapon1" db:"weapon_1"`
 	Weapon2   string `json:"weapon2" db:"weapon_2"`
@@ -219,6 +235,7 @@ type CharacterMastery struct {
 }
 
 type CharacterModeModifier struct {
+	Id                                      int64  `db:"id"`
 	CharacterCode                           int    `json:"characterCode" db:"character_code"`
 	WeaponType                              string `json:"weaponType" db:"weapon_type"`
 	SoloIncreaseModeDamageRatio             int    `json:"soloIncreaseModeDamageRatio" db:"solo_increase_mode_damage_ratio"`
@@ -240,11 +257,11 @@ type CharacterModeModifier struct {
 	CobaltIncreaseModeDamageRatio           int    `json:"cobaltIncreaseModeDamageRatio" db:"cobalt_increase_mode_damage_ratio"`
 	CobaltPreventModeDamageRatio            int    `json:"cobaltPreventModeDamageRatio" db:"cobalt_prevent_mode_damage_ratio"`
 	CobaltIncreaseModeHealRatio             int    `json:"cobaltIncreaseModeHealRatio" db:"cobalt_increase_mode_heal_ratio"`
-	CobaltIncreaseModeHealerGiveHealRatio   int    `json:"cobaltIncreaseModeHealerGiveHealRatio" db:"cobalt_increase_mode_healer_give_shield_ratio"`
+	CobaltIncreaseModeHealerGiveHealRatio   int    `json:"cobaltIncreaseModeHealerGiveHealRatio" db:"cobalt_increase_mode_healer_give_heal_ratio"`
 	CobaltIncreaseModeShieldRatio           int    `json:"cobaltIncreaseModeShieldRatio" db:"cobalt_increase_mode_shield_ratio"`
 	CobaltIncreaseModeHealerGiveShieldRatio int    `json:"cobaltIncreaseModeHealerGiveShieldRatio" db:"cobalt_increase_mode_healer_give_shield_ratio"`
 	CobaltIncreaseModeUltCooldownRatio      int    `json:"cobaltIncreaseModeUltCooldownRatio" db:"cobalt_increase_mode_ult_cooldown_ratio"`
-	CobaltIncreaseModeMaxSpRatio            int    `json:"cobaltIncreaseModeMaxSpRatio" db:"cobalt_increase_mode-max_sp_ratio"`
+	CobaltIncreaseModeMaxSpRatio            int    `json:"cobaltIncreaseModeMaxSpRatio" db:"cobalt_increase_mode_max_sp_ratio"`
 	CobaltIncreaseModeSpRegenRatio          int    `json:"cobaltIncreaseModeSpRegenRatio" db:"cobalt_increase_mode_sp_regen_ratio"`
 	SoloIncreaseModeDamageToMonsterRatio    int    `json:"soloIncreaseModeDamageToMonsterRatio" db:"solo_increase_mode_damage_to_monster_ratio"`
 	DuoIncreaseModeDamageToMonsterRatio     int    `json:"duoIncreaseModeDamageToMonsterRatio" db:"duo_increase_mode_damage_to_monster_ratio"`
@@ -253,6 +270,7 @@ type CharacterModeModifier struct {
 }
 
 type CharacterSkin struct {
+	Id                       int64  `db:"id"`
 	Name                     string `json:"name" db:"name"`
 	Code                     int    `json:"code" db:"code"`
 	CharacterCode            int    `json:"characterCode" db:"character_code"`
@@ -272,6 +290,7 @@ type CharacterSkin struct {
 }
 
 type Collectible struct {
+	Id                int64  `db:"id"`
 	Code              int    `json:"code" db:"code"`
 	Cooldown          int    `json:"cooldown" db:"cooldown"`
 	ItemCode1         string `json:"itemCode1" db:"item_code_1"`
@@ -283,6 +302,7 @@ type Collectible struct {
 }
 
 type DropGroup struct {
+	Id          int64  `db:"id"`
 	GroupCode   int    `json:"groupCode" db:"group_code"`
 	ItemCode    string `json:"itemCode" db:"item_code"`
 	Min         int    `json:"min" db:"min"`
@@ -292,12 +312,14 @@ type DropGroup struct {
 }
 
 type GainExp struct {
-	StartTime int `json:"startTime" db:"start_time"`
-	EndTime   int `json:"endTime" db:"end_time"`
-	GainExp   int `json:"gainExp" db:"gain_exp"`
+	Id        int64 `db:"id"`
+	StartTime int   `json:"startTime" db:"start_time"`
+	EndTime   int   `json:"endTime" db:"end_time"`
+	GainExp   int   `json:"gainExp" db:"gain_exp"`
 }
 
 type GainScore struct {
+	Id             int64  `db:"id"`
 	Code           int    `json:"code" db:"code"`
 	Phase          int    `json:"phase" db:"phase"`
 	ConditionType  string `json:"conditionType" db:"condition_type"`
@@ -307,6 +329,7 @@ type GainScore struct {
 }
 
 type GameTip struct {
+	Id              int64  `db:"id"`
 	Key             int    `json:"key" db:"key"`
 	Code            int    `json:"code" db:"code"`
 	GameTipType     string `json:"gameTipType" db:"game_tip_type"`
@@ -320,41 +343,61 @@ type GameTip struct {
 }
 
 type HowToFindItem struct {
-	Code            int `json:"code" db:"code"`
-	ItemCode        int `json:"itemCode" db:"item_code"`
-	HuntChicken     int `json:"huntChicken" db:"hunt_chicken"`
-	HuntBat         int `json:"huntBat" db:"hunt_bat"`
-	HuntBoar        int `json:"huntBoar" db:"hunt_boar"`
-	HuntWildDog     int `json:"huntWildDog" db:"hunt_dog"`
-	HuntWolf        int `json:"huntWolf" db:"hunt_wolf"`
-	HuntBear        int `json:"huntBear" db:"hunt_bear"`
-	HuntWickeline   int `json:"huntWickline" db:"hunt_wickeline"`
-	HuntAlpha       int `json:"huntAlpha" db:"hunt_alpha"`
-	HuntOmega       int `json:"huntOmega" db:"hunt_omega"`
-	CollectibleCode int `json:"collectibleCode" db:"collectible_code"`
-	AirSupply       int `json:"airSupply" db:"air_supply"`
+	Id              int64 `db:"id"`
+	Code            int   `json:"code" db:"code"`
+	ItemCode        int   `json:"itemCode" db:"item_code"`
+	HuntChicken     int   `json:"huntChicken" db:"hunt_chicken"`
+	HuntBat         int   `json:"huntBat" db:"hunt_bat"`
+	HuntBoar        int   `json:"huntBoar" db:"hunt_boar"`
+	HuntWildDog     int   `json:"huntWildDog" db:"hunt_dog"`
+	HuntWolf        int   `json:"huntWolf" db:"hunt_wolf"`
+	HuntBear        int   `json:"huntBear" db:"hunt_bear"`
+	HuntWickeline   int   `json:"huntWickline" db:"hunt_wickeline"`
+	HuntAlpha       int   `json:"huntAlpha" db:"hunt_alpha"`
+	HuntOmega       int   `json:"huntOmega" db:"hunt_omega"`
+	CollectibleCode int   `json:"collectibleCode" db:"collectible_code"`
+	AirSupply       int   `json:"airSupply" db:"air_supply"`
 }
 
 type InfusionProduct struct {
-	Code             int         `json:"code" db:"code"`
-	ProductType      string      `json:"productType" db:"product_type"`
-	ProductGroup     int         `json:"productGroup" db:"product_group"`
-	ProductCode      int         `json:"productCode" db:"product_code"`
-	StoreType        string      `json:"storeType" db:"store_type"`
-	StockType        string      `json:"stockType" db:"stock_type"`
-	Stock            int         `json:"stock" db:"stock"`
-	IsRestore        bool        `json:"isRestore" db:"is_restore"`
-	Price            int         `json:"price" db:"price"`
-	SpecialWeight    int         `json:"specialWeight" db:"special_weight"`
-	Weight           int         `json:"weight" db:"weight"`
-	Requirement      int         `json:"requirement" db:"requirement"`
-	Icon             string      `json:"icon" db:"icon"`
-	SimpleIcon       string      `json:"simpleIcon" db:"simple_icon"`
-	AlertInSpectator bool        `json:"alertInSpectator" db:"alert_in_spectator"`
-	CharacterCodes   interface{} `json:"characterCodes"` // string of comma joined ints or int
+	Id                 int64       `db:"id"`
+	Code               int         `json:"code" db:"code"`
+	ProductType        string      `json:"productType" db:"product_type"`
+	ProductGroup       int         `json:"productGroup" db:"product_group"`
+	ProductCode        int         `json:"productCode" db:"product_code"`
+	StoreType          string      `json:"storeType" db:"store_type"`
+	StockType          string      `json:"stockType" db:"stock_type"`
+	Stock              int         `json:"stock" db:"stock"`
+	IsRestore          bool        `json:"isRestore" db:"is_restore"`
+	Price              int         `json:"price" db:"price"`
+	SpecialWeight      int         `json:"specialWeight" db:"special_weight"`
+	Weight             int         `json:"weight" db:"weight"`
+	Requirement        int         `json:"requirement" db:"requirement"`
+	Icon               string      `json:"icon" db:"icon"`
+	SimpleIcon         string      `json:"simpleIcon" db:"simple_icon"`
+	AlertInSpectator   bool        `json:"alertInSpectator" db:"alert_in_spectator"`
+	CharacterCodeArray []int       `db:"character_codes"`
+	CharacterCodes     interface{} `json:"characterCodes"` // string of comma joined ints or int
+}
+
+func (ip *InfusionProduct) Prepare() {
+	switch ip.CharacterCodes.(type) {
+	case int:
+		ip.CharacterCodeArray = append(ip.CharacterCodeArray, ip.CharacterCodes.(int))
+	case string:
+		values := strings.Split(ip.CharacterCodes.(string), ",")
+		for _, e := range values {
+			res, err := strconv.Atoi(e)
+			if err != nil {
+				continue
+			} // TODO: log
+			ip.CharacterCodeArray = append(ip.CharacterCodeArray, res)
+		}
+	}
 }
 
 type ItemConsumable struct {
+	Id                                                 int64  `db:"id"`
 	Code                                               int    `json:"code" db:"code"`
 	Name                                               string `json:"name" db:"name"`
 	ModeType                                           int    `json:"modeType" db:"mode_type"`
@@ -390,6 +433,7 @@ type ItemConsumable struct {
 }
 
 type ItemMisc struct {
+	Id                                                 int64  `db:"id"`
 	Code                                               int    `json:"code" db:"code"`
 	Name                                               string `json:"name" db:"name"`
 	ModeType                                           int    `json:"modeType" db:"mode_type"`
@@ -416,6 +460,7 @@ type ItemMisc struct {
 }
 
 type ItemSearchOption struct {
+	Id   int64  `db:"id"`
 	Code int    `json:"code" db:"code"`
 	Name string `json:"name" db:"name"`
 	Tag1 string `json:"tag1" db:"tag_1"`
@@ -424,6 +469,7 @@ type ItemSearchOption struct {
 }
 
 type ItemSpawn struct {
+	Id             int64  `db:"id"`
 	Code           int    `json:"code" db:"code"`
 	AreaCode       int    `json:"areaCode" db:"area_code"`
 	AreaSpawnGroup int    `json:"areaSpawnGroup" db:"area_spawn_group"`
@@ -433,6 +479,7 @@ type ItemSpawn struct {
 }
 
 type ItemSpecial struct {
+	Id                                                 int64       `db:"id"`
 	Code                                               int         `json:"code" db:"code"`
 	Name                                               string      `json:"name" db:"name"`
 	ModeType                                           int         `json:"modeType" db:"mode_type"`
@@ -445,26 +492,44 @@ type ItemSpecial struct {
 	CraftAnimTrigger                                   string      `json:"craftAnimTrigger" db:"craft_anim_trigger"`
 	Stackable                                          int         `json:"stackable" db:"stackable"`
 	InitialCount                                       int         `json:"initialCount" db:"initial_count"`
-	CooldownGroupCode                                  int         `json:"cooldownGroupCode" db:"int"`
+	CooldownGroupCode                                  int         `json:"cooldownGroupCode" db:"cooldown_group_code"`
 	Cooldown                                           float64     `json:"cooldown" db:"cooldown"`
 	ItemUsableType                                     string      `json:"itemUsableType" db:"item_usable_type"`
 	ItemUsableValueList                                int         `json:"itemUsableValueList" db:"item_usable_value_list"`
+	ExclusiveProducerArray                             []int       `db:"exclusive_producer"`
 	ExclusiveProducer                                  interface{} `json:"exclusiveProducer"` // number or comma separated numbers in a string
 	IsRemovedFromPlayerCorpseInventoryWhenPlayerKilled bool        `json:"isRemovedFromPlayerCorpseInventoryWhenPlayerKilled" db:"is_removed_from_player_inventory_on_death"`
 	ManufacturableType                                 int         `json:"manufacturableType" db:"manufacturable_type"`
-	MakeMaterial1                                      int         `json:"makeMaterial1" db:"make_material_2"`
+	MakeMaterial1                                      int         `json:"makeMaterial1" db:"make_material_1"`
 	MakeMaterial2                                      int         `json:"makeMaterial2" db:"make_material_2"`
 	MakeCustomAction                                   string      `json:"makeCustomAction" db:"make_custom_action"`
 	ConsumeCount                                       int         `json:"consumeCount" db:"consume_count"`
 	SummonCode                                         int         `json:"summonCode" db:"summon_code"`
 	GhostItemStateGroup                                int         `json:"ghostItemStateGroup" db:"ghost_item_state_group"`
 	IsVPadQuickSlotItem                                bool        `json:"isVPadQuickSlotItem" db:"is_vpad_quick_slot_item"`
-	RestoreItemWhenResurrected                         bool        `json:"restoreItemWhenResurrected" db:"remove_item_when_resurrected"`
+	RestoreItemWhenResurrected                         bool        `json:"restoreItemWhenResurrected" db:"restore_item_when_resurrected"`
 	CreditValueWhenConvertedToBounty                   int         `json:"creditValueWhenConvertedToBounty" db:"credit_value_when_converted_to_bounty"`
 	IsReduceLootOnDeath                                bool        `json:"isReduceLootOnDeath" db:"is_reduce_loot_on_death"`
 }
 
+func (ip *ItemSpecial) Prepare() {
+	switch ip.ExclusiveProducer.(type) {
+	case int:
+		ip.ExclusiveProducerArray = append(ip.ExclusiveProducerArray, ip.ExclusiveProducer.(int))
+	case string:
+		values := strings.Split(ip.ExclusiveProducer.(string), ",")
+		for _, e := range values {
+			res, err := strconv.Atoi(e)
+			if err != nil {
+				continue
+			} // TODO: log
+			ip.ExclusiveProducerArray = append(ip.ExclusiveProducerArray, res)
+		}
+	}
+}
+
 type ItemWeapon struct {
+	Id                                                 int64   `db:"id"`
 	Code                                               int     `json:"code" db:"code"`
 	Name                                               string  `json:"name" db:"name"`
 	ModeType                                           int     `json:"modeType" db:"mode_type"`
@@ -551,14 +616,16 @@ type ItemWeapon struct {
 }
 
 type Level struct {
-	Level         int `json:"level" db:"level"`
-	NeedExp       int `json:"needExp" db:"need_exp"`
-	AccumulateExp int `json:"accumulateExp" db:"accumulate_exp"`
-	RewardAcoin   int `json:"rewardAcoin" db:"reward_acoin"`
-	Reward        int `json:"reward" db:"reward"`
+	Id            int64 `db:"id"`
+	Level         int   `json:"level" db:"level"`
+	NeedExp       int   `json:"needExp" db:"needed_exp"`
+	AccumulateExp int   `json:"accumulateExp" db:"accumulate_exp"`
+	RewardAcoin   int   `json:"rewardAcoin" db:"reward_acoin"`
+	Reward        int   `json:"reward" db:"reward"`
 }
 
 type LoadingTip struct {
+	Id             int64  `db:"id"`
 	Code           int    `json:"code" db:"code"`
 	LoadingTipType string `json:"loadingTipType" db:"loading_tip_type"`
 	MinLv          int    `json:"minLv" db:"min_lv"`
@@ -568,6 +635,7 @@ type LoadingTip struct {
 }
 
 type MasteryExp struct {
+	Id             int64  `db:"id"`
 	Code           int    `json:"code" db:"code"`
 	ModeType       int    `json:"modeType" db:"mode_type"`
 	ConditionType  string `json:"conditionType" db:"condition_type"`
@@ -582,15 +650,17 @@ type MasteryExp struct {
 }
 
 type MasteryLevel struct {
+	Id                int64  `db:"id"`
 	Code              int    `json:"code" db:"code"`
 	Type              string `json:"type" db:"type"`
 	MasteryLevel      int    `json:"masteryLevel" db:"mastery_level"`
-	NextMasteryExp    int    `json:"nextMasteryExp" db:"next_mastery"`
+	NextMasteryExp    int    `json:"nextMasteryExp" db:"next_mastery_exp"`
 	GiveLevelExp      int    `json:"giveLevelExp" db:"give_level_exp"`
 	ExpGrowthCapRatio int    `json:"expGrowthCapRatio" db:"exp_growth_cap_ratio"`
 }
 
 type MasteryStat struct {
+	Id                        int64   `db:"id"`
 	Code                      int     `json:"code" db:"code"`
 	Type                      string  `json:"type" db:"type"`
 	CharacterCode             int     `json:"characterCode" db:"character_code"`
@@ -612,6 +682,7 @@ type MasteryStat struct {
 }
 
 type Monster struct {
+	Id               int64   `db:"id"`
 	Code             int     `json:"Code" db:"code"`
 	Monster          string  `json:"monster" db:"monster"`
 	IsMutant         bool    `json:"isMutant" db:"is_mutant"`
@@ -648,12 +719,14 @@ type Monster struct {
 }
 
 type MonsterDropGroup struct {
-	MonsterCode  int `json:"monsterCode" db:"monster_code"`
-	MonsterLevel int `json:"monsterLevel" db:"monster_level"`
-	DropGroup    int `json:"dropGroup" db:"drop_group"`
+	Id           int64 `db:"id"`
+	MonsterCode  int   `json:"monsterCode" db:"monster_code"`
+	MonsterLevel int   `json:"monsterLevel" db:"monster_level"`
+	DropGroup    int   `json:"dropGroup" db:"drop_group"`
 }
 
 type MonsterLevelUpStat struct {
+	Id          int64   `db:"id"`
 	Code        int     `json:"code" db:"code"`
 	Monster     string  `json:"monster" db:"monster"`
 	Mode        int     `json:"mode" db:"mode"`
@@ -665,36 +738,55 @@ type MonsterLevelUpStat struct {
 }
 
 type MonsterSpawnLevel struct {
-	Code        int `json:"code" db:"code"`
-	Mode        int `json:"mode" db:"mode"`
-	PlayerLevel int `json:"playerLevel" db:"player_level"`
-	MonsterCode int `json:"monsterCode" db:"monster_code"`
-	SpawnLevel  int `json:"spawnLevel" db:"spawn_level"`
+	Id          int64 `db:"id"`
+	Code        int   `json:"code" db:"code"`
+	Mode        int   `json:"mode" db:"mode"`
+	PlayerLevel int   `json:"playerLevel" db:"player_level"`
+	MonsterCode int   `json:"monsterCode" db:"monster_code"`
+	SpawnLevel  int   `json:"spawnLevel" db:"spawn_level"`
 }
 
 type NaviCollectAndHunt struct {
+	Id           int64  `db:"id"`
 	Code         int    `json:"code" db:"code"`
 	ItemCode     int    `json:"itemCode" db:"item_code"`
 	AreaCodeList string `json:"areaCodeList" db:"area_code_list"`
 }
 
 type NearByArea struct {
-	Code           int `json:"code" db:"code"`
-	AreaCode       int `json:"areaCode" db:"area_code"`
-	NearByAreaCode int `json:"nearByAreaCode" db:"near_by_area_code"`
+	Id             int64 `db:"id"`
+	Code           int   `json:"code" db:"code"`
+	AreaCode       int   `json:"areaCode" db:"area_code"`
+	NearByAreaCode int   `json:"nearByAreaCode" db:"near_by_area_code"`
 }
 
 type RandomEquipment struct {
+	Id            int64       `db:"id"`
 	Code          int         `json:"code" db:"code"`
 	Group         string      `json:"group" db:"group"`
 	ItemCode      interface{} `json:"itemcode"` // string or number but always seems to be a number
+	ItemCodeValue int         `db:"item_code"`
 	Weight        int         `json:"weight" db:"weight"`
 	ItemGrade     string      `json:"itemGrade" db:"item_grade"`
 	TagMultiplier int         `json:"tagMultiplier" db:"tag_multiplier"`
 	CharacterNum  int         `json:"characterNum" db:"character_num"`
 }
 
+func (ip *RandomEquipment) Prepare() {
+	switch ip.ItemCode.(type) {
+	case int:
+		ip.ItemCodeValue = ip.ItemCode.(int)
+	case string:
+		res, err := strconv.Atoi(ip.ItemCode.(string))
+		if err != nil {
+			break
+		}
+		ip.ItemCodeValue = res
+	}
+}
+
 type RecommendedList struct {
+	Id                    int64  `db:"id"`
 	Code                  int    `json:"code" db:"code"`
 	Character             string `json:"character" db:"character"`
 	CharacterCode         int    `json:"characterCode" db:"character_code"`
@@ -710,14 +802,18 @@ type RecommendedList struct {
 }
 
 type Season struct {
-	SeasonID    int    `json:"seasonID" db:"season_id"`
-	SeasonName  string `json:"seasonName"` // no tags as they need to be converted to date
-	SeasonStart string `json:"seasonStart"`
-	SeasonEnd   string `json:"seasonEnd"`
-	IsCurrent   int    `json:"isCurrent" db:"is_current"`
+	Id              int64     `db:"id"`
+	SeasonID        int       `json:"seasonID" db:"season_id"`
+	SeasonName      string    `json:"seasonName" db:"season_name"` // no tags as they need to be converted to date
+	SeasonStart     string    `json:"seasonStart"`
+	SeasonEnd       string    `json:"seasonEnd"`
+	SeasonStartDate time.Time `db:"season_start"`
+	SeasonEndDate   time.Time `db:"season_end"`
+	IsCurrent       int       `json:"isCurrent" db:"is_current"`
 }
 
 type SummonObjectStat struct {
+	Id                   int64   `db:"id"`
 	Code                 int     `json:"code" db:"code"`
 	Name                 string  `json:"name" db:"name"`
 	Duration             float64 `json:"duration" db:"duration"`
@@ -748,14 +844,16 @@ type SummonObjectStat struct {
 }
 
 type TacticalSkillSet struct {
-	Code            int `json:"code" db:"code"`
-	NextUpgradeCode int `json:"nextUpgradecode" db:"next_upgrade_code"`
-	UpgradeCredit   int `json:"upgradeCredit" db:"upgrade_credit"`
-	UpgradeMaterial int `json:"upgradeMaterial" db:"upgrade_material"`
-	SkillCode       int `json:"skillCode" db:"skill_code"`
+	Id              int64 `db:"id"`
+	Code            int   `json:"code" db:"code"`
+	NextUpgradeCode int   `json:"nextUpgradecode" db:"next_upgrade_code"`
+	UpgradeCredit   int   `json:"upgradeCredit" db:"upgrade_credit"`
+	UpgradeMaterial int   `json:"upgradeMaterial" db:"upgrade_material"`
+	SkillCode       int   `json:"skillCode" db:"skill_code"`
 }
 
 type TacticalSkillSetGroup struct {
+	Id             int64  `db:"id"`
 	Group          int    `json:"group" db:"group"`
 	ModeType       int    `json:"modeType" db:"mode_type"`
 	StartCode      int    `json:"startCode" db:"start_code"`
@@ -764,6 +862,7 @@ type TacticalSkillSetGroup struct {
 }
 
 type Trait struct {
+	Id            int64  `db:"id"`
 	Code          int    `json:"code" db:"code"`
 	OpenAccountLv int    `json:"openAccountLv" db:"open_account_lv"`
 	TraitGroup    string `json:"traitGroup" db:"trait_group"`
@@ -772,6 +871,7 @@ type Trait struct {
 }
 
 type TransferConsole struct {
+	Id                                 int64  `db:"id"`
 	ItemCode                           int    `json:"itemCode" db:"item_code"`
 	Mode                               int    `json:"mode" db:"mode"`
 	ItemType                           string `json:"itemType" db:"item_type"`
@@ -785,6 +885,7 @@ type TransferConsole struct {
 }
 
 type VfCredit struct {
+	Id             int64   `db:"id"`
 	Code           int     `json:"code" db:"code"`
 	Mode           int     `json:"mode" db:"mode"`
 	Phase          int     `json:"phase" db:"phase"`
@@ -795,6 +896,7 @@ type VfCredit struct {
 }
 
 type WeaponTypeInfo struct {
+	Id                    int64   `db:"id"`
 	Type                  string  `json:"type" db:"type"`
 	AttackSpeed           float64 `json:"attackSpeed" db:"attack_speed"`
 	AttackRange           float64 `json:"attackRange" db:"attack_range"`
