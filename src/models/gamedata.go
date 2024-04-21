@@ -1,6 +1,7 @@
 package models
 
 import (
+	"github.com/lib/pq"
 	"strconv"
 	"strings"
 	"time"
@@ -302,13 +303,27 @@ type Collectible struct {
 }
 
 type DropGroup struct {
-	Id          int64  `db:"id"`
-	GroupCode   int    `json:"groupCode" db:"group_code"`
-	ItemCode    string `json:"itemCode" db:"item_code"`
-	Min         int    `json:"min" db:"min"`
-	Max         int    `json:"max" db:"max"`
-	Probability int    `json:"probability" db:"probability"`
-	DropType    string `json:"dropType" db:"drop_type"`
+	Id            int64       `db:"id"`
+	GroupCode     int         `json:"groupCode" db:"group_code"`
+	ItemCodeValue int         `db:"item_code"`
+	ItemCode      interface{} `json:"itemCode"`
+	Min           int         `json:"min" db:"min"`
+	Max           int         `json:"max" db:"max"`
+	Probability   int         `json:"probability" db:"probability"`
+	DropType      string      `json:"dropType" db:"drop_type"`
+}
+
+func (dg *DropGroup) Prepare() {
+	switch dg.ItemCode.(type) {
+	case int:
+		dg.ItemCodeValue = dg.ItemCode.(int)
+	case string:
+		val, err := strconv.Atoi(dg.ItemCode.(string))
+		if err != nil {
+			break
+		}
+		dg.ItemCodeValue = val
+	}
 }
 
 type GainExp struct {
@@ -343,20 +358,34 @@ type GameTip struct {
 }
 
 type HowToFindItem struct {
-	Id              int64 `db:"id"`
-	Code            int   `json:"code" db:"code"`
-	ItemCode        int   `json:"itemCode" db:"item_code"`
-	HuntChicken     int   `json:"huntChicken" db:"hunt_chicken"`
-	HuntBat         int   `json:"huntBat" db:"hunt_bat"`
-	HuntBoar        int   `json:"huntBoar" db:"hunt_boar"`
-	HuntWildDog     int   `json:"huntWildDog" db:"hunt_dog"`
-	HuntWolf        int   `json:"huntWolf" db:"hunt_wolf"`
-	HuntBear        int   `json:"huntBear" db:"hunt_bear"`
-	HuntWickeline   int   `json:"huntWickline" db:"hunt_wickeline"`
-	HuntAlpha       int   `json:"huntAlpha" db:"hunt_alpha"`
-	HuntOmega       int   `json:"huntOmega" db:"hunt_omega"`
-	CollectibleCode int   `json:"collectibleCode" db:"collectible_code"`
-	AirSupply       int   `json:"airSupply" db:"air_supply"`
+	Id              int64       `db:"id"`
+	Code            int         `json:"code" db:"code"`
+	ItemCodeValue   int         `db:"item_code"`
+	ItemCode        interface{} `json:"itemCode"`
+	HuntChicken     int         `json:"huntChicken" db:"hunt_chicken"`
+	HuntBat         int         `json:"huntBat" db:"hunt_bat"`
+	HuntBoar        int         `json:"huntBoar" db:"hunt_boar"`
+	HuntWildDog     int         `json:"huntWildDog" db:"hunt_dog"`
+	HuntWolf        int         `json:"huntWolf" db:"hunt_wolf"`
+	HuntBear        int         `json:"huntBear" db:"hunt_bear"`
+	HuntWickeline   int         `json:"huntWickline" db:"hunt_wickeline"`
+	HuntAlpha       int         `json:"huntAlpha" db:"hunt_alpha"`
+	HuntOmega       int         `json:"huntOmega" db:"hunt_omega"`
+	CollectibleCode int         `json:"collectibleCode" db:"collectible_code"`
+	AirSupply       int         `json:"airSupply" db:"air_supply"`
+}
+
+func (fi *HowToFindItem) Prepare() {
+	switch fi.ItemCode.(type) {
+	case int:
+		fi.ItemCodeValue = fi.ItemCode.(int)
+	case string:
+		val, err := strconv.Atoi(fi.ItemCode.(string))
+		if err != nil {
+			break
+		}
+		fi.ItemCodeValue = val
+	}
 }
 
 type InfusionProduct struct {
@@ -376,23 +405,26 @@ type InfusionProduct struct {
 	Icon               string      `json:"icon" db:"icon"`
 	SimpleIcon         string      `json:"simpleIcon" db:"simple_icon"`
 	AlertInSpectator   bool        `json:"alertInSpectator" db:"alert_in_spectator"`
-	CharacterCodeArray []int       `db:"character_codes"`
+	CharacterCodeArray interface{} `db:"character_codes"`
 	CharacterCodes     interface{} `json:"characterCodes"` // string of comma joined ints or int
 }
 
 func (ip *InfusionProduct) Prepare() {
 	switch ip.CharacterCodes.(type) {
 	case int:
-		ip.CharacterCodeArray = append(ip.CharacterCodeArray, ip.CharacterCodes.(int))
+		val := ip.CharacterCodes.(int)
+		ip.CharacterCodeArray = pq.Array(val)
 	case string:
 		values := strings.Split(ip.CharacterCodes.(string), ",")
+		var result []int
 		for _, e := range values {
 			res, err := strconv.Atoi(e)
 			if err != nil {
 				continue
 			} // TODO: log
-			ip.CharacterCodeArray = append(ip.CharacterCodeArray, res)
+			result = append(result, res)
 		}
+		ip.CharacterCodeArray = pq.Array(result)
 	}
 }
 
@@ -496,7 +528,7 @@ type ItemSpecial struct {
 	Cooldown                                           float64     `json:"cooldown" db:"cooldown"`
 	ItemUsableType                                     string      `json:"itemUsableType" db:"item_usable_type"`
 	ItemUsableValueList                                int         `json:"itemUsableValueList" db:"item_usable_value_list"`
-	ExclusiveProducerArray                             []int       `db:"exclusive_producer"`
+	ExclusiveProducerArray                             interface{} `db:"exclusive_producer"`
 	ExclusiveProducer                                  interface{} `json:"exclusiveProducer"` // number or comma separated numbers in a string
 	IsRemovedFromPlayerCorpseInventoryWhenPlayerKilled bool        `json:"isRemovedFromPlayerCorpseInventoryWhenPlayerKilled" db:"is_removed_from_player_inventory_on_death"`
 	ManufacturableType                                 int         `json:"manufacturableType" db:"manufacturable_type"`
@@ -515,104 +547,127 @@ type ItemSpecial struct {
 func (ip *ItemSpecial) Prepare() {
 	switch ip.ExclusiveProducer.(type) {
 	case int:
-		ip.ExclusiveProducerArray = append(ip.ExclusiveProducerArray, ip.ExclusiveProducer.(int))
+		val := ip.ExclusiveProducer.(int)
+		ip.ExclusiveProducerArray = pq.Array(val)
 	case string:
 		values := strings.Split(ip.ExclusiveProducer.(string), ",")
+		var result []int
 		for _, e := range values {
 			res, err := strconv.Atoi(e)
 			if err != nil {
 				continue
 			} // TODO: log
-			ip.ExclusiveProducerArray = append(ip.ExclusiveProducerArray, res)
+			result = append(result, res)
 		}
+		ip.ExclusiveProducerArray = pq.Array(result)
 	}
 }
 
 type ItemWeapon struct {
-	Id                                                 int64   `db:"id"`
-	Code                                               int     `json:"code" db:"code"`
-	Name                                               string  `json:"name" db:"name"`
-	ModeType                                           int     `json:"modeType" db:"mode_type"`
-	ItemType                                           string  `json:"itemType" db:"item_type"`
-	WeaponType                                         string  `json:"weaponType" db:"weapon_type"`
-	ItemGrade                                          string  `json:"itemGrade" db:"item_grade"`
-	GradeBgOverride                                    string  `json:"gradeBgOverride" db:"grade_bg_override"`
-	IsCompletedItem                                    bool    `json:"isCompletedItem" db:"is_completed_item"`
-	AlertInSpectator                                   bool    `json:"alertInSpectator" db:"alert_in_spectator"`
-	MarkingType                                        string  `json:"markingType" db:"marking_type"`
-	CraftAnimTrigger                                   string  `json:"craftAnimTrigger" db:"craft_anim_trigger"`
-	Stackable                                          int     `json:"stackable" db:"stackable"`
-	InitialCount                                       int     `json:"initialCount" db:"initial_count"`
-	ItemUsableType                                     string  `json:"itemUsableType" db:"item_usable_type"`
-	ItemUsableValueList                                int     `json:"itemUsableValueList" db:"item_usable_value_list"`
-	ExclusiveProducer                                  int     `json:"exclusiveProducer" db:"exclusive_producer"`
-	IsRemovedFromPlayerCorpseInventoryWhenPlayerKilled bool    `json:"isRemovedFromPlayerCorpseInventoryWhenPlayerKilled" db:"is_removed_from_player_inventory_on_death"`
-	MakeMaterial1                                      int     `json:"makeMaterial1" db:"make_material_1"`
-	MakeMaterial2                                      int     `json:"makeMaterial2" db:"make_material_2"`
-	MakeCustomAction                                   string  `json:"makeCustomAction" db:"make_custom_action"`
-	NotDisarm                                          bool    `json:"notDisarm" db:"not_disarm"`
-	Consumable                                         bool    `json:"consumable" db:"consumable"`
-	ManufacturableType                                 int     `json:"manufacturableType" db:"manufacturable_type"`
-	AttackPower                                        int     `json:"attackPower" db:"attack_power"`
-	AttackPowerByLv                                    int     `json:"attackPowerByLv" db:"attack_power_by_lv"`
-	Defense                                            int     `json:"defense" db:"defense"`
-	DefenseByLv                                        int     `json:"defenseByLv" db:"defense_by_lv"`
-	SkillAmp                                           int     `json:"skillAmp" db:"skill_amp"`
-	SkillAmpByLevel                                    int     `json:"skillAmpByLevel" db:"skill_amp_by_lv"`
-	SkillAmpRatio                                      int     `json:"skillAmpRatio" db:"skill_amp_ratio"`
-	SkillAmpRatioByLevel                               int     `json:"skillAmpRatioByLevel" db:"skill_amp_ratio_by_lv"`
-	AdaptiveForce                                      int     `json:"adaptiveForce" db:"adaptive_force"`
-	AdaptiveForceByLevel                               int     `json:"adaptiveForceByLevel" db:"adaptive_force_by_lv"`
-	MaxHp                                              int     `json:"maxHp" db:"max_hp"`
-	MaxHpByLv                                          int     `json:"maxHpByLv" db:"max_hp_by_lv"`
-	HpRegenRatio                                       float64 `json:"hpRegenRatio" db:"hp_regen_ratio"`
-	HpRegen                                            int     `json:"hpRegen" db:"hp_regen"`
-	MaxSP                                              int     `json:"maxSP" db:"max_sp"`
-	SpRegenRatio                                       float64 `json:"spRegenRatio" db:"sp_regen_ratio"`
-	SpRegen                                            int     `json:"spRegen" db:"sp_regen"`
-	AttackSpeedRatio                                   float64 `json:"attackSpeedRatio" db:"attack_speed_ratio"`
-	AttackSpeedRatioByLv                               float32 `json:"attackSpeedRatioByLv" db:"attack_speed_ratio_by_lv"`
-	CriticalStrikeChance                               float64 `json:"criticalStrikeChance" db:"critical_strike_chance"`
-	CriticalStrikeDamage                               float64 `json:"criticalStrikeDamage" db:"critical_strike_damage"`
-	CooldownReduction                                  float64 `json:"cooldownReduction" db:"cooldown_reduction"`
-	PreventCriticalStrikeDamage                        int     `json:"preventCriticalStrikeDamaged" db:"prevent_critical_strike_damage"`
-	CooldownLimit                                      int     `json:"cooldownLimit" db:"cooldown_limit"`
-	LifeSteal                                          float64 `json:"lifeSteal" db:"lifesteal"`
-	NormalLifeSteal                                    float64 `json:"normalLifeSteal" db:"normal_lifesteal"`
-	SkillLifeSteal                                     float64 `json:"skillLifeSteal" db:"skill_lifesteal"`
-	MoveSpeed                                          float64 `json:"moveSpeed" db:"move_speed"`
-	MoveSpeedOutOfCombat                               float64 `json:"moveSpeedOutOfCombat" db:"move_speed_out_of_combat"`
-	SightRange                                         float64 `json:"sightRange" db:"sight_range"`
-	AttackRange                                        float64 `json:"attackRange" db:"attack_range"`
-	IncreaseBasicAttackDamage                          int     `json:"increaseBasicAttackDamage" db:"increase_basic_attack_damage"`
-	IncreaseBasicAttackDamageByLv                      int     `json:"increaseBasicAttackDamageByLv" db:"increase_basic_attack_damage_by_lv"`
-	IncreaseBasicAttackDamageRatio                     float64 `json:"increaseBasicAttackDamageRatio" db:"increase_basic_attack_damage_ratio"`
-	IncreaseBasicAttackDamageRatioByLv                 float64 `json:"increaseBasicAttackDamageRatioByLv" db:"increase_basic_attack_damage_ratio_by_lv"`
-	PreventBasicAttackDamaged                          int     `json:"preventBasicAttackDamaged" db:"prevent_basic_attack_damage"`
-	PreventBasicAttackDamagedByLv                      int     `json:"preventBasicAttackDamagedByLv" db:"prevent_basic_attack_damage_by_lv"`
-	PreventBasicAttackDamagedRatio                     float64 `json:"preventBasicAttackDamagedRatio" db:"prevent_basic_attack_damage_ratio"`
-	PreventBasicAttackDamagedRatioByLv                 float64 `json:"preventBasicAttackDamagedRatioByLv" db:"prevent_basic_attack_damage_ratio_by_lv"`
-	PreventSkillDamage                                 int     `json:"preventSkillDamaged" db:"prevent_skill_damage"`
-	PreventSkillDamageByLv                             int     `json:"preventSkillDamagedByLv" db:"prevent_skill_damage_by_lv"`
-	PreventSkillDamageRatio                            float64 `json:"preventSkillDamagedRatio" db:"prevent_skill_damage_ratio"`
-	PreventSkillDamageRatioByLv                        float64 `json:"preventSkillDamagedRatioByLv" db:"prevent_skill_damage_ratio_by_lv"`
-	PenetrationDefense                                 int     `json:"penetrationDefense" db:"penetration_defense"`
-	PenetrationDefenseRatio                            float64 `json:"penetrationDefenseRatio" db:"penetration_defense_ratio"`
-	TrapDamageReduce                                   int     `json:"trapDamageReduce" db:"trap_damage_reduce"`
-	TrapDamageReduceRatio                              float64 `json:"trapDamageReduceRatio" db:"trap_damage_reduce_ratio"`
-	HpHealedIncreaseRatio                              float64 `json:"hpHealedIncreaseRatio" db:"hp_healed_increase_ratio"`
-	HealerGiveHpHealRatio                              float64 `json:"healerGiveHpHealRatio" db:"healer_give_hp_heal_ratio"`
-	UniqueAttackRange                                  float64 `json:"uniqueAttackRange" db:"unique_attack_range"`
-	UniqueHpHealedIncreaseRatio                        float64 `json:"uniqueHpHealedIncreaseRatio" db:"unique_hp_healed_increase_ratio"`
-	UniqueCooldownLimit                                float64 `json:"uniqueCooldownLimit" db:"unique_cooldown_limit"`
-	UniqueTenacity                                     float64 `json:"uniqueTenacity" db:"unique_tenacity"`
-	UniqueMoveSpeed                                    float64 `json:"uniqueMoveSpeed" db:"unique_move_speed"`
-	UniquePenetrationDefense                           int     `json:"uniquePenetrationDefense" db:"unique_penetration_defense"`
-	UniquePenetrationDefenseRatio                      float64 `json:"uniquePenetrationDefenseRatio" db:"unique_penetration_defense_ratio"`
-	UniqueLifeSteal                                    float64 `json:"uniqueLifeSteal" db:"unique_lifesteal"`
-	UniqueSkillAmpRatio                                float64 `json:"uniqueSkillAmpRatio" db:"unique_skill_amp_ratio"`
-	RestoreItemWhenResurrected                         bool    `json:"restoreItemWhenResurrected" db:"restore_item_when_resurrected"`
-	CreditValueWhenConvertedToBounty                   int     `json:"creditValueWhenConvertedToBounty" db:"credit_value_when_converted_to_bounty"`
+	Id                                                 int64       `db:"id"`
+	Code                                               int         `json:"code" db:"code"`
+	Name                                               string      `json:"name" db:"name"`
+	ModeType                                           int         `json:"modeType" db:"mode_type"`
+	ItemType                                           string      `json:"itemType" db:"item_type"`
+	WeaponType                                         string      `json:"weaponType" db:"weapon_type"`
+	ItemGrade                                          string      `json:"itemGrade" db:"item_grade"`
+	GradeBgOverride                                    string      `json:"gradeBgOverride" db:"grade_bg_override"`
+	IsCompletedItem                                    bool        `json:"isCompletedItem" db:"is_completed_item"`
+	AlertInSpectator                                   bool        `json:"alertInSpectator" db:"alert_in_spectator"`
+	MarkingType                                        string      `json:"markingType" db:"marking_type"`
+	CraftAnimTrigger                                   string      `json:"craftAnimTrigger" db:"craft_anim_trigger"`
+	Stackable                                          int         `json:"stackable" db:"stackable"`
+	InitialCount                                       int         `json:"initialCount" db:"initial_count"`
+	ItemUsableType                                     string      `json:"itemUsableType" db:"item_usable_type"`
+	ItemUsableValueList                                int         `json:"itemUsableValueList" db:"item_usable_value_list"`
+	ExclusiveProducer                                  interface{} `json:"exclusiveProducer"`
+	ExclusiveProducerArray                             interface{} `db:"exclusive_producer"`
+	IsRemovedFromPlayerCorpseInventoryWhenPlayerKilled bool        `json:"isRemovedFromPlayerCorpseInventoryWhenPlayerKilled" db:"is_removed_from_player_inventory_on_death"`
+	MakeMaterial1                                      int         `json:"makeMaterial1" db:"make_material_1"`
+	MakeMaterial2                                      int         `json:"makeMaterial2" db:"make_material_2"`
+	MakeCustomAction                                   string      `json:"makeCustomAction" db:"make_custom_action"`
+	NotDisarm                                          bool        `json:"notDisarm" db:"not_disarm"`
+	Consumable                                         bool        `json:"consumable" db:"consumable"`
+	ManufacturableType                                 int         `json:"manufacturableType" db:"manufacturable_type"`
+	AttackPower                                        int         `json:"attackPower" db:"attack_power"`
+	AttackPowerByLv                                    int         `json:"attackPowerByLv" db:"attack_power_by_lv"`
+	Defense                                            int         `json:"defense" db:"defense"`
+	DefenseByLv                                        int         `json:"defenseByLv" db:"defense_by_lv"`
+	SkillAmp                                           int         `json:"skillAmp" db:"skill_amp"`
+	SkillAmpByLevel                                    int         `json:"skillAmpByLevel" db:"skill_amp_by_lv"`
+	SkillAmpRatio                                      int         `json:"skillAmpRatio" db:"skill_amp_ratio"`
+	SkillAmpRatioByLevel                               int         `json:"skillAmpRatioByLevel" db:"skill_amp_ratio_by_lv"`
+	AdaptiveForce                                      int         `json:"adaptiveForce" db:"adaptive_force"`
+	AdaptiveForceByLevel                               int         `json:"adaptiveForceByLevel" db:"adaptive_force_by_lv"`
+	MaxHp                                              int         `json:"maxHp" db:"max_hp"`
+	MaxHpByLv                                          int         `json:"maxHpByLv" db:"max_hp_by_lv"`
+	HpRegenRatio                                       float64     `json:"hpRegenRatio" db:"hp_regen_ratio"`
+	HpRegen                                            int         `json:"hpRegen" db:"hp_regen"`
+	MaxSP                                              int         `json:"maxSP" db:"max_sp"`
+	SpRegenRatio                                       float64     `json:"spRegenRatio" db:"sp_regen_ratio"`
+	SpRegen                                            int         `json:"spRegen" db:"sp_regen"`
+	AttackSpeedRatio                                   float64     `json:"attackSpeedRatio" db:"attack_speed_ratio"`
+	AttackSpeedRatioByLv                               float32     `json:"attackSpeedRatioByLv" db:"attack_speed_ratio_by_lv"`
+	CriticalStrikeChance                               float64     `json:"criticalStrikeChance" db:"critical_strike_chance"`
+	CriticalStrikeDamage                               float64     `json:"criticalStrikeDamage" db:"critical_strike_damage"`
+	CooldownReduction                                  float64     `json:"cooldownReduction" db:"cooldown_reduction"`
+	PreventCriticalStrikeDamage                        int         `json:"preventCriticalStrikeDamaged" db:"prevent_critical_strike_damage"`
+	CooldownLimit                                      int         `json:"cooldownLimit" db:"cooldown_limit"`
+	LifeSteal                                          float64     `json:"lifeSteal" db:"lifesteal"`
+	NormalLifeSteal                                    float64     `json:"normalLifeSteal" db:"normal_lifesteal"`
+	SkillLifeSteal                                     float64     `json:"skillLifeSteal" db:"skill_lifesteal"`
+	MoveSpeed                                          float64     `json:"moveSpeed" db:"move_speed"`
+	MoveSpeedOutOfCombat                               float64     `json:"moveSpeedOutOfCombat" db:"move_speed_out_of_combat"`
+	SightRange                                         float64     `json:"sightRange" db:"sight_range"`
+	AttackRange                                        float64     `json:"attackRange" db:"attack_range"`
+	IncreaseBasicAttackDamage                          int         `json:"increaseBasicAttackDamage" db:"increase_basic_attack_damage"`
+	IncreaseBasicAttackDamageByLv                      int         `json:"increaseBasicAttackDamageByLv" db:"increase_basic_attack_damage_by_lv"`
+	IncreaseBasicAttackDamageRatio                     float64     `json:"increaseBasicAttackDamageRatio" db:"increase_basic_attack_damage_ratio"`
+	IncreaseBasicAttackDamageRatioByLv                 float64     `json:"increaseBasicAttackDamageRatioByLv" db:"increase_basic_attack_damage_ratio_by_lv"`
+	PreventBasicAttackDamaged                          int         `json:"preventBasicAttackDamaged" db:"prevent_basic_attack_damage"`
+	PreventBasicAttackDamagedByLv                      int         `json:"preventBasicAttackDamagedByLv" db:"prevent_basic_attack_damage_by_lv"`
+	PreventBasicAttackDamagedRatio                     float64     `json:"preventBasicAttackDamagedRatio" db:"prevent_basic_attack_damage_ratio"`
+	PreventBasicAttackDamagedRatioByLv                 float64     `json:"preventBasicAttackDamagedRatioByLv" db:"prevent_basic_attack_damage_ratio_by_lv"`
+	PreventSkillDamage                                 int         `json:"preventSkillDamaged" db:"prevent_skill_damage"`
+	PreventSkillDamageByLv                             int         `json:"preventSkillDamagedByLv" db:"prevent_skill_damage_by_lv"`
+	PreventSkillDamageRatio                            float64     `json:"preventSkillDamagedRatio" db:"prevent_skill_damage_ratio"`
+	PreventSkillDamageRatioByLv                        float64     `json:"preventSkillDamagedRatioByLv" db:"prevent_skill_damage_ratio_by_lv"`
+	PenetrationDefense                                 int         `json:"penetrationDefense" db:"penetration_defense"`
+	PenetrationDefenseRatio                            float64     `json:"penetrationDefenseRatio" db:"penetration_defense_ratio"`
+	TrapDamageReduce                                   int         `json:"trapDamageReduce" db:"trap_damage_reduce"`
+	TrapDamageReduceRatio                              float64     `json:"trapDamageReduceRatio" db:"trap_damage_reduce_ratio"`
+	HpHealedIncreaseRatio                              float64     `json:"hpHealedIncreaseRatio" db:"hp_healed_increase_ratio"`
+	HealerGiveHpHealRatio                              float64     `json:"healerGiveHpHealRatio" db:"healer_give_hp_heal_ratio"`
+	UniqueAttackRange                                  float64     `json:"uniqueAttackRange" db:"unique_attack_range"`
+	UniqueHpHealedIncreaseRatio                        float64     `json:"uniqueHpHealedIncreaseRatio" db:"unique_hp_healed_increase_ratio"`
+	UniqueCooldownLimit                                float64     `json:"uniqueCooldownLimit" db:"unique_cooldown_limit"`
+	UniqueTenacity                                     float64     `json:"uniqueTenacity" db:"unique_tenacity"`
+	UniqueMoveSpeed                                    float64     `json:"uniqueMoveSpeed" db:"unique_move_speed"`
+	UniquePenetrationDefense                           int         `json:"uniquePenetrationDefense" db:"unique_penetration_defense"`
+	UniquePenetrationDefenseRatio                      float64     `json:"uniquePenetrationDefenseRatio" db:"unique_penetration_defense_ratio"`
+	UniqueLifeSteal                                    float64     `json:"uniqueLifeSteal" db:"unique_lifesteal"`
+	UniqueSkillAmpRatio                                float64     `json:"uniqueSkillAmpRatio" db:"unique_skill_amp_ratio"`
+	RestoreItemWhenResurrected                         bool        `json:"restoreItemWhenResurrected" db:"restore_item_when_resurrected"`
+	CreditValueWhenConvertedToBounty                   int         `json:"creditValueWhenConvertedToBounty" db:"credit_value_when_converted_to_bounty"`
+}
+
+func (ip *ItemWeapon) Prepare() {
+	switch ip.ExclusiveProducer.(type) {
+	case int:
+		val := ip.ExclusiveProducer.(int)
+		ip.ExclusiveProducerArray = pq.Array(val)
+	case string:
+		values := strings.Split(ip.ExclusiveProducer.(string), ",")
+		var result []int
+		for _, e := range values {
+			res, err := strconv.Atoi(e)
+			if err != nil {
+				continue
+			} // TODO: log
+			result = append(result, res)
+		}
+		ip.ExclusiveProducerArray = pq.Array(result)
+	}
 }
 
 type Level struct {
@@ -810,6 +865,18 @@ type Season struct {
 	SeasonStartDate time.Time `db:"season_start"`
 	SeasonEndDate   time.Time `db:"season_end"`
 	IsCurrent       int       `json:"isCurrent" db:"is_current"`
+}
+
+func (s *Season) Prepare() {
+	val, err := time.Parse("2006-01-02 03:04:05", s.SeasonStart)
+	if err == nil {
+		s.SeasonStartDate = val
+	}
+
+	val, err = time.Parse("2006-01-02 03:04:05", s.SeasonEnd)
+	if err == nil {
+		s.SeasonEndDate = val
+	}
 }
 
 type SummonObjectStat struct {

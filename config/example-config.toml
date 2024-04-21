@@ -1,4 +1,8 @@
-# Modify the config here and copy the file to config.toml, .gitignore will exclude this from being uploaded
+# Modify the config here and copy the file to erbs-config.toml, add it to .gitignore
+# It will look for the config in these locations in this order
+# 1. ./erbs-config.toml
+# 2. ./config/erbs-config.toml
+# 3. ../config/erbs-config.toml
 
 title = "ERBS-BE Config"
 
@@ -8,3 +12,6 @@ port = 5432
 name = "erbs"
 username = "<put username here>"
 password = "<put password here>"
+
+[api]
+key = "<put api key here>"

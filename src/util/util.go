@@ -8,11 +8,20 @@ import (
 
 func GetDatabaseConfig() m.ErbsConfig {
 	var conf m.ErbsConfig
-	if _, err := toml.DecodeFile("./config/config.toml", &conf); err != nil {
-		panic("Error opening config file")
+
+	if _, err := toml.DecodeFile("./erbs-config.toml", &conf); err == nil {
+		return conf
 	}
 
-	return conf
+	if _, err := toml.DecodeFile("./config/erbs-config.toml", &conf); err == nil {
+		return conf
+	}
+
+	if _, err := toml.DecodeFile("../config/erbs-config.toml", &conf); err == nil {
+		return conf
+	}
+
+	panic("Unable to find config file")
 }
 
 func GetConnectionString(conf m.ErbsConfig) string {

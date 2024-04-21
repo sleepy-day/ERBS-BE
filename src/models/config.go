@@ -2,6 +2,7 @@ package models
 
 type ErbsConfig struct {
 	Database DatabaseConfig
+	Api      ApiConfig
 }
 
 type DatabaseConfig struct {
@@ -10,4 +11,8 @@ type DatabaseConfig struct {
 	Name     string
 	Username string
 	Password string
+}
+
+type ApiConfig struct {
+	Key string
 }

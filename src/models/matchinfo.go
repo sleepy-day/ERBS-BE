@@ -421,7 +421,7 @@ type UserStats struct {
 type WeaponRoute struct {
 	Id                   int64 `db:"id"`
 	RecommendWeaponRoute struct {
-		Id                     int     `json:"id" db:"id"`
+		Id                     int     `json:"id" db:"route_id"`
 		Title                  string  `json:"title" db:"title"`
 		UserNum                int     `json:"userNum" db:"user_num"`
 		UserNickname           string  `json:"userNickname" db:"user_nickname"`
