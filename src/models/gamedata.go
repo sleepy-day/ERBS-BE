@@ -970,3 +970,181 @@ type WeaponTypeInfo struct {
 	ShopFilter            int     `json:"shopFilter" db:"shop_filter"`
 	SummonObjectHitDamage int     `json:"summonObjectHitDamage" db:"summon_object_hit_damage"`
 }
+
+// Item/Name/{int}
+// Item/Help/{int}
+// Item/Effect/{int}
+type ItemEnglishInfo struct {
+	Code        int    `db:"item_code"`
+	Name        string `db:"name_english"`
+	Description string `db:"description_english"`
+	Effect      string `db:"effect_english"`
+}
+
+// Trait/Name/{int}
+// Trait/StatTooltip/{int}
+// Infusion/Trait/Desc/{int}
+type TraitEnglishInfo struct {
+	Code        int    `db:"code"`
+	Name        string `db:"name_english"`
+	StatTooltip string `db:"stat_tooltip_english"`
+	Description string `db:"description_english"`
+}
+
+// Character/Name/{int}
+// CharacterStoryName/{int}
+// CharacterStoryAge/{int}
+// CharacterStoryHeight/{int}
+// CharacterStoryGender/{int}
+// CharacterStoryDesc/{int}
+// CharacterStoryTitle/{int}
+type CharacterEnglishInfo struct {
+	Code            int    `db:"code"`
+	Name            string `db:"name_english"`
+	LoreName        string `db:"lore_name_english"`
+	LoreHeight      string `db:"lore_height_english"`
+	LoreAge         string `db:"lore_age_english"`
+	LoreTitle       string `db:"lore_title_english"`
+	LoreDescription string `db:"lore_description_english"`
+	LoreGender      string `db:"lore_gender_english"`
+}
+
+// Monster/Name/{int}
+type MonsterEnglishInfo struct {
+	Code int    `db:"code"`
+	Name string `db:"name_english"`
+}
+
+// Area/Name/{int}
+type AreaEnglishInfo struct {
+	Code int    `db:"code"`
+	Name string `db:"name_english"`
+}
+
+// ItemType/{string}
+type ItemTypeEnglishInfo struct {
+	Type string `db:"item_type"`
+	Name string `db:"item_type_english"`
+}
+
+// WeaponType/{string}
+type WeaponTypeEnglishInfo struct {
+	Type string `db:"weapon_type"`
+	Name string `db:"weapon_type_english"`
+}
+
+// ArmorType/{string}
+type ArmorTypeEnglishInfo struct {
+	Type string `db:"armor_type"`
+	Name string `db:"armor_type_english"`
+}
+
+// SpecialItemType/{string}
+type SpecialItemTypeEnglishInfo struct {
+	Type string `db:"special_item_type"`
+	Name string `db:"special_item_type_english"`
+}
+
+// ItemConsumableType/{string}
+type ItemConsumableTypeEnglishInfo struct {
+	Type string `db:"consumable_type"`
+	Name string `db:"consumable_type_english"`
+}
+
+// MasteryType/{string}
+type MasteryTypeEnglishInfo struct {
+	Type string `db:"type"`
+	Name string `db:"type_english"`
+}
+
+// ItemGrade/{string}
+type ItemGradeEnglishInfo struct {
+	Grade string `db:"item_grade"`
+	Name  string `db:"item_grade_english"`
+}
+
+// MasteryConditionType/{string}
+type MasteryConditionTypeEnglishInfo struct {
+	Type string `db:"condition_type"`
+	Name string `db:"condition_type_english"`
+}
+
+// StatType/{string}
+// StatType/{string}/Desc
+type StatTypeDescriptionEnglish struct {
+	Type        string `db:"stat_type"`
+	Name        string `db:"name_english"`
+	Description string `db:"description_english"`
+}
+
+// ToolTipType/{string}
+type ToolTipTypeEnglish struct {
+	Type        string `db:"tool_tip_type"`
+	Description string `db:"description"`
+}
+
+// SummonData/Name/{int}
+type SummonDataEnglish struct {
+	Code int    `db:"code"`
+	Name string `db:"name_english"`
+}
+
+// Skin/Name/{int}
+// Skin/Desc/{int}
+type SkinEnglish struct {
+	Code        int    `db:"code"`
+	Name        string `db:"name_english"`
+	Description string `db:"description"`
+}
+
+// Skill/Group/Name/{int}
+// Skill/Group/Desc/{int}
+// Skill/Group/Coef/{int}
+// Skill/Group/ExpansionTip/{int}
+type SkillGroupEnglish struct {
+	Code         int    `db:"code"`
+	Name         string `db:"name_english"`
+	Description  string `db:"description_english"`
+	Coefficient  string `db:"coefficient_english"`
+	ExpansionTip string `db:"expansion_tip"`
+}
+
+// Skill/LobbyDesc/{int}
+// Skill/LobbyName/{int}
+type SkillEnglish struct {
+	Code        int    `db:"code"`
+	Name        string `db:"name_english"`
+	Description string `db:"description_english"`
+}
+
+// Skill/Code/Name/{int}
+// Skill/Code/Desc/{int}
+// Skill/Code/Coef/{int}
+// Skill/Code/ExpansionTip/{int}
+type TacticalSkillEnglish struct {
+	Code         int    `db:"code"`
+	Name         string `db:"name_english"`
+	Description  string `db:"description_english"`
+	Coefficient  string `db:"coefficient_english"`
+	ExpansionTip string `db:"expansion_tip"`
+}
+
+// CharacterState/Group/Name/{int}
+// CharacterState/Group/Desc/{int}
+type CharacterStateEnglish struct {
+	Code        int    `db:"code"`
+	Name        string `db:"name_english"`
+	Description string `db:"description_english"`
+}
+
+// Item/Skills/{int} <-- item_name
+// Item/Skills/{int}/Body
+// Item/Skills/{int}/Name
+// Item/Skills/{int}/Desc
+type ItemSkillEnglish struct {
+	Code                 int    `db:"code"`
+	ItemName             string `db:"item_name"`
+	ItemSkillName        string `db:"item_skill_name_english"`
+	ItemSkillBody        string `db:"item_skill_body_english"`
+	ItemSkillDescription string `db:"item_skill_description_english"`
+}

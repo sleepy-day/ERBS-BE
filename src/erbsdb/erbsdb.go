@@ -660,13 +660,14 @@ func PopulateGameDataTables() error {
 		e := reflect.ValueOf(response.Data[0])
 		cols, vals := getDbFields(e)
 
-		query := fmt.Sprintf("INSERT INTO %s %s VALUES %s;", "item_armor", cols, vals)
-		truncateQuery := "TRUNCATE TABLE item_armor;"
+		query := fmt.Sprintf("INSERT INTO %s %s VALUES %s;", "items", cols, vals)
+		truncateQuery := "TRUNCATE TABLE items;"
 
 		_, err = tx.Exec(truncateQuery)
 		if err != nil {
 			return err
 		}
+
 		_, err = tx.NamedExec(query, response.Data)
 		if err != nil {
 			return err
@@ -692,13 +693,7 @@ func PopulateGameDataTables() error {
 		e := reflect.ValueOf(response.Data[0])
 		cols, vals := getDbFields(e)
 
-		query := fmt.Sprintf("INSERT INTO %s %s VALUES %s;", "item_consumable", cols, vals)
-		truncateQuery := "TRUNCATE TABLE item_consumable;"
-
-		_, err = tx.Exec(truncateQuery)
-		if err != nil {
-			return err
-		}
+		query := fmt.Sprintf("INSERT INTO %s %s VALUES %s;", "items", cols, vals)
 		_, err = tx.NamedExec(query, response.Data)
 		if err != nil {
 			return err
@@ -724,13 +719,7 @@ func PopulateGameDataTables() error {
 		e := reflect.ValueOf(response.Data[0])
 		cols, vals := getDbFields(e)
 
-		query := fmt.Sprintf("INSERT INTO %s %s VALUES %s;", "item_misc", cols, vals)
-		truncateQuery := "TRUNCATE TABLE item_misc;"
-
-		_, err = tx.Exec(truncateQuery)
-		if err != nil {
-			return err
-		}
+		query := fmt.Sprintf("INSERT INTO %s %s VALUES %s;", "items", cols, vals)
 		_, err = tx.NamedExec(query, response.Data)
 		if err != nil {
 			return err
@@ -824,13 +813,7 @@ func PopulateGameDataTables() error {
 		e := reflect.ValueOf(response.Data[0])
 		cols, vals := getDbFields(e)
 
-		query := fmt.Sprintf("INSERT INTO %s %s VALUES %s;", "item_special", cols, vals)
-		truncateQuery := "TRUNCATE TABLE item_special;"
-
-		_, err = tx.Exec(truncateQuery)
-		if err != nil {
-			return err
-		}
+		query := fmt.Sprintf("INSERT INTO %s %s VALUES %s;", "items", cols, vals)
 		_, err = tx.NamedExec(query, response.Data)
 		if err != nil {
 			return err
@@ -860,13 +843,7 @@ func PopulateGameDataTables() error {
 		e := reflect.ValueOf(response.Data[0])
 		cols, vals := getDbFields(e)
 
-		query := fmt.Sprintf("INSERT INTO %s %s VALUES %s;", "item_weapon", cols, vals)
-		truncateQuery := "TRUNCATE TABLE item_weapon;"
-
-		_, err = tx.Exec(truncateQuery)
-		if err != nil {
-			return err
-		}
+		query := fmt.Sprintf("INSERT INTO %s %s VALUES %s;", "items", cols, vals)
 		_, err = tx.NamedExec(query, response.Data)
 		if err != nil {
 			return err
