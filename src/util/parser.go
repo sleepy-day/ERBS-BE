@@ -267,7 +267,7 @@ func ParseEnglishFile(file *os.File) EnglishInfo {
 			}
 
 			if segments[0] == "Skill" && segments[1] == "Group" {
-				switch segments[3] {
+				switch segments[2] {
 				case "Name":
 					val := initStruct[models.SkillGroupEnglish](info.SkillGroupInfo, intVal, "Code", "Name", mapKey, value)
 					info.SkillGroupInfo[mapKey] = val
@@ -285,7 +285,7 @@ func ParseEnglishFile(file *os.File) EnglishInfo {
 			}
 
 			if segments[0] == "Skill" && segments[1] == "Code" {
-				switch segments[3] {
+				switch segments[2] {
 				case "Name":
 					val := initStruct[models.TacticalSkillEnglish](info.TacticalSkillInfo, intVal, "Code", "Name", mapKey, value)
 					info.TacticalSkillInfo[mapKey] = val

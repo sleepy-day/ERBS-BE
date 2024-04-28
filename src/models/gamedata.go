@@ -975,7 +975,7 @@ type WeaponTypeInfo struct {
 // Item/Help/{int}
 // Item/Effect/{int}
 type ItemEnglishInfo struct {
-	Code        int    `db:"item_code"`
+	Code        int    `db:"code"`
 	Name        string `db:"name_english"`
 	Description string `db:"description_english"`
 	Effect      string `db:"effect_english"`
@@ -1080,7 +1080,7 @@ type StatTypeDescriptionEnglish struct {
 // ToolTipType/{string}
 type ToolTipTypeEnglish struct {
 	Type        string `db:"tool_tip_type"`
-	Description string `db:"description"`
+	Description string `db:"description_english"`
 }
 
 // SummonData/Name/{int}
@@ -1094,7 +1094,7 @@ type SummonDataEnglish struct {
 type SkinEnglish struct {
 	Code        int    `db:"code"`
 	Name        string `db:"name_english"`
-	Description string `db:"description"`
+	Description string `db:"description_english"`
 }
 
 // Skill/Group/Name/{int}
@@ -1106,7 +1106,7 @@ type SkillGroupEnglish struct {
 	Name         string `db:"name_english"`
 	Description  string `db:"description_english"`
 	Coefficient  string `db:"coefficient_english"`
-	ExpansionTip string `db:"expansion_tip"`
+	ExpansionTip string `db:"expansion_tip_english"`
 }
 
 // Skill/LobbyDesc/{int}
@@ -1126,7 +1126,7 @@ type TacticalSkillEnglish struct {
 	Name         string `db:"name_english"`
 	Description  string `db:"description_english"`
 	Coefficient  string `db:"coefficient_english"`
-	ExpansionTip string `db:"expansion_tip"`
+	ExpansionTip string `db:"expansion_tip_english"`
 }
 
 // CharacterState/Group/Name/{int}
@@ -1143,7 +1143,7 @@ type CharacterStateEnglish struct {
 // Item/Skills/{int}/Desc
 type ItemSkillEnglish struct {
 	Code                 int    `db:"code"`
-	ItemName             string `db:"item_name"`
+	ItemName             string `db:"item_name_english"`
 	ItemSkillName        string `db:"item_skill_name_english"`
 	ItemSkillBody        string `db:"item_skill_body_english"`
 	ItemSkillDescription string `db:"item_skill_description_english"`

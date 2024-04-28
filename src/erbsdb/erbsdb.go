@@ -8,15 +8,18 @@ import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"github.com/sleepy-day/ERBS-BE/src/models"
+	"github.com/sleepy-day/ERBS-BE/src/util"
 	"golang.org/x/time/rate"
 	"io"
 	"net/http"
+	"os"
 	"reflect"
 	"strings"
 	"time"
 )
 
 const DATA_URL = "https://open-api.bser.io/v2/data/"
+const LANGUAGE_URL = "https://open-api.bser.io/v1/l10n/"
 
 var db *sqlx.DB
 var client *http.Client
@@ -63,7 +66,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.ActionCost]{}
+		response := &models.Response[[]models.ActionCost]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -95,7 +98,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.Area]{}
+		response := &models.Response[[]models.Area]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -127,7 +130,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.BattleZoneReward]{}
+		response := &models.Response[[]models.BattleZoneReward]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -159,7 +162,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.BulletCapacity]{}
+		response := &models.Response[[]models.BulletCapacity]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -191,7 +194,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.Character]{}
+		response := &models.Response[[]models.Character]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -223,7 +226,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.CharacterAttributes]{}
+		response := &models.Response[[]models.CharacterAttributes]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -255,7 +258,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.CharacterExp]{}
+		response := &models.Response[[]models.CharacterExp]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -287,7 +290,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.CharacterLevelUpStat]{}
+		response := &models.Response[[]models.CharacterLevelUpStat]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -319,7 +322,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.CharacterMastery]{}
+		response := &models.Response[[]models.CharacterMastery]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -351,7 +354,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.CharacterModeModifier]{}
+		response := &models.Response[[]models.CharacterModeModifier]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -383,7 +386,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.CharacterSkin]{}
+		response := &models.Response[[]models.CharacterSkin]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -415,7 +418,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.Collectible]{}
+		response := &models.Response[[]models.Collectible]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -447,7 +450,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.DropGroup]{}
+		response := &models.Response[[]models.DropGroup]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -483,7 +486,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.GainExp]{}
+		response := &models.Response[[]models.GainExp]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -515,7 +518,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.GainScore]{}
+		response := &models.Response[[]models.GainScore]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -547,7 +550,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.GameTip]{}
+		response := &models.Response[[]models.GameTip]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -579,7 +582,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.HowToFindItem]{}
+		response := &models.Response[[]models.HowToFindItem]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -615,7 +618,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.InfusionProduct]{}
+		response := &models.Response[[]models.InfusionProduct]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -651,7 +654,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.ItemArmor]{}
+		response := &models.Response[[]models.ItemArmor]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -684,7 +687,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.ItemConsumable]{}
+		response := &models.Response[[]models.ItemConsumable]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -710,7 +713,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.ItemMisc]{}
+		response := &models.Response[[]models.ItemMisc]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -736,7 +739,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.ItemSearchOption]{}
+		response := &models.Response[[]models.ItemSearchOption]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -768,7 +771,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.ItemSpawn]{}
+		response := &models.Response[[]models.ItemSpawn]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -800,7 +803,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.ItemSpecial]{}
+		response := &models.Response[[]models.ItemSpecial]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -830,7 +833,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.ItemWeapon]{}
+		response := &models.Response[[]models.ItemWeapon]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -860,7 +863,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.Level]{}
+		response := &models.Response[[]models.Level]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -892,7 +895,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.LoadingTip]{}
+		response := &models.Response[[]models.LoadingTip]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -924,7 +927,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.MasteryExp]{}
+		response := &models.Response[[]models.MasteryExp]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -956,7 +959,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.MasteryLevel]{}
+		response := &models.Response[[]models.MasteryLevel]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -988,7 +991,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.MasteryStat]{}
+		response := &models.Response[[]models.MasteryStat]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1020,7 +1023,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.Monster]{}
+		response := &models.Response[[]models.Monster]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1052,7 +1055,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.MonsterDropGroup]{}
+		response := &models.Response[[]models.MonsterDropGroup]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1084,7 +1087,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.MonsterLevelUpStat]{}
+		response := &models.Response[[]models.MonsterLevelUpStat]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1116,7 +1119,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.MonsterSpawnLevel]{}
+		response := &models.Response[[]models.MonsterSpawnLevel]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1148,7 +1151,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.NaviCollectAndHunt]{}
+		response := &models.Response[[]models.NaviCollectAndHunt]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1180,7 +1183,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.NearByArea]{}
+		response := &models.Response[[]models.NearByArea]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1212,29 +1215,21 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		fmt.Println("request made")
-		response := &models.Response[models.RandomEquipment]{}
+		response := &models.Response[[]models.RandomEquipment]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
 		}
-		fmt.Println("json unmarshalled")
 
 		for _, v := range response.Data {
 			v.Prepare()
 		}
 
-		fmt.Println("data prepared")
-
 		e := reflect.ValueOf(response.Data[0])
 		cols, vals := getDbFields(e)
 
-		fmt.Println("db fields retrieved")
-
 		query := fmt.Sprintf("INSERT INTO %s %s VALUES %s;", "random_equipment", cols, vals)
 		truncateQuery := "TRUNCATE TABLE random_equipment;"
-
-		fmt.Println("query: " + query)
 
 		_, err = tx.Exec(truncateQuery)
 		if err != nil {
@@ -1256,7 +1251,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.RecommendedList]{}
+		response := &models.Response[[]models.RecommendedList]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1288,7 +1283,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.Season]{}
+		response := &models.Response[[]models.Season]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1324,7 +1319,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.SummonObjectStat]{}
+		response := &models.Response[[]models.SummonObjectStat]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1356,7 +1351,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.TacticalSkillSet]{}
+		response := &models.Response[[]models.TacticalSkillSet]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1388,7 +1383,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.TacticalSkillSetGroup]{}
+		response := &models.Response[[]models.TacticalSkillSetGroup]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1420,7 +1415,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.Trait]{}
+		response := &models.Response[[]models.Trait]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1452,7 +1447,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.TransferConsole]{}
+		response := &models.Response[[]models.TransferConsole]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1484,7 +1479,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.VfCredit]{}
+		response := &models.Response[[]models.VfCredit]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1516,7 +1511,7 @@ func PopulateGameDataTables() error {
 		if err != nil {
 			return err
 		}
-		response := &models.Response[models.WeaponTypeInfo]{}
+		response := &models.Response[[]models.WeaponTypeInfo]{}
 		err = json.Unmarshal(*body, &response)
 		if err != nil {
 			return err
@@ -1628,4 +1623,441 @@ func getDbFields(v reflect.Value) (string, string) {
 		columns = append(columns, tag)
 	}
 	return "(" + strings.Join(columns, ", ") + ")", "(" + strings.Join(values, ", ") + ")"
+}
+
+func PopulateTablesFromLangFile(info util.EnglishInfo) error {
+	tx := db.MustBegin()
+	{
+		fmt.Printf("Processing struct %s\n", "ItemEnglishInfo")
+		query :=
+			`UPDATE 
+				items 
+			SET 
+				name_english = :name_english, 
+				description_english = :description_english, 
+				effect_english = :effect_english 
+			WHERE 
+				code = :code;`
+		for _, v := range info.ItemInfo {
+			_, err := tx.NamedExec(query, v)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "TraitEnglishInfo")
+		query :=
+			`UPDATE 
+				trait 
+			SET 
+				name_english = :name_english, 
+				description_english = :description_english, 
+				stat_tooltip_english = :stat_tooltip_english
+			WHERE 
+				code = :code;`
+		for _, v := range info.TraitInfo {
+			_, err := tx.NamedExec(query, v)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "CharacterEnglishInfo")
+		query :=
+			`UPDATE 
+			character 
+		SET 
+			lore_name_english = :lore_name_english, 
+			lore_description_english = :lore_description_english, 
+			lore_height_english = :lore_height_english,
+			lore_age_english = :lore_age_english,
+			lore_gender_english = :lore_gender_english,
+			lore_title_english = :lore_title_english
+		WHERE
+		    code = :code;`
+		for _, v := range info.CharacterInfo {
+			_, err := tx.NamedExec(query, v)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "MonsterEnglishInfo")
+		query :=
+			`UPDATE 
+			monster 
+		SET 
+		    name_english = :name_english
+		WHERE
+		    code = :code;`
+		for _, v := range info.MonsterInfo {
+			_, err := tx.NamedExec(query, v)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "ItemTypeEnglishInfo")
+		query :=
+			`UPDATE 
+				items
+			SET 
+		    	item_type_english = :item_type_english
+			WHERE
+		    	item_type = :item_type;`
+		for _, v := range info.ItemTypeInfo {
+			_, err := tx.NamedExec(query, v)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "WeaponTypeEnglishInfo")
+		query :=
+			`UPDATE 
+				items 
+			SET 
+		    	weapon_type_english = :weapon_type_english
+			WHERE
+		    	weapon_type = :weapon_type;`
+		for _, v := range info.WeaponTypeInfo {
+			_, err := tx.NamedExec(query, v)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "ArmorTypeEnglishInfo")
+		query :=
+			`UPDATE 
+				items
+			SET 
+		    	armor_type_english = :armor_type_english
+			WHERE
+		    	armor_type = :armor_type;`
+		for _, v := range info.ArmorTypeInfo {
+			_, err := tx.NamedExec(query, v)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "SpecialItemTypeEnglishInfo")
+		query :=
+			`UPDATE 
+				items 
+			SET 
+		    	special_item_type_english = :special_item_type_english
+			WHERE
+		    	special_item_type = :special_item_type;`
+		for _, v := range info.SpecialItemTypeInfo {
+			_, err := tx.NamedExec(query, v)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "ItemConsumableTypeEnglishInfo")
+		query :=
+			`UPDATE 
+				items 
+			SET 
+		    	consumable_type_english = :consumable_type_english
+			WHERE
+		    	consumable_type = :consumable_type;`
+		for _, v := range info.ItemConsumableInfo {
+			_, err := tx.NamedExec(query, v)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "MasteryTypeEnglishInfo")
+		query :=
+			`UPDATE 
+				mastery_stat 
+			SET 
+		    	type_english = :type_english
+			WHERE
+		    	type = :type;`
+		for _, v := range info.MasteryTypeInfo {
+			_, err := tx.NamedExec(query, v)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "ItemGradeEnglishInfo")
+		query :=
+			`UPDATE 
+				items 
+			SET 
+		    	item_grade_english = :item_grade_english
+			WHERE
+			    item_grade = :item_grade;`
+		for _, v := range info.ItemGradeInfo {
+			_, err := tx.NamedExec(query, v)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "MasteryConditionTypeEnglishInfo")
+		query :=
+			`UPDATE 
+				 mastery_exp
+			SET 
+			    condition_type_english = :condition_type_english
+			WHERE
+		    	condition_type = :condition_type;`
+		for _, v := range info.MasteryConditionTypeInfo {
+			_, err := tx.NamedExec(query, v)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "StatTypeDescriptionEnglish")
+		query :=
+			`INSERT INTO 
+				stat_type (stat_type, name_english, description_english) 
+			VALUES  
+				(:stat_type, :name_english, :description_english);`
+
+		slc := make([]models.StatTypeDescriptionEnglish, len(info.StatTypeInfo))
+		for _, v := range info.StatTypeInfo {
+			slc = append(slc, v)
+		}
+		_, err := tx.NamedExec(query, slc)
+
+		if err != nil {
+			return err
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "ToolTipTypeEnglish")
+		query :=
+			`INSERT INTO 
+				tooltip_type (tool_tip_type, description_english)  
+			VALUES 
+				(:tool_tip_type, :description_english);`
+		slc := make([]models.ToolTipTypeEnglish, len(info.ToolTipTypeInfo))
+		for _, v := range info.ToolTipTypeInfo {
+			slc = append(slc, v)
+		}
+		_, err := tx.NamedExec(query, slc)
+
+		if err != nil {
+			return err
+		}
+	}
+	{
+		fmt.Printf("Processing struct %s\n", "SummonDataEnglish")
+		query :=
+			`UPDATE 
+				summon_object_stat 
+			SET 
+		    	name_english = :name_english
+			WHERE
+		    	code = :code;`
+		for _, v := range info.SummonInfo {
+			_, err := tx.NamedExec(query, v)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "SkinEnglish")
+		query :=
+			`UPDATE 
+				character_skin 
+			SET 
+		    	name_english = :name_english,
+				description_english = :description_english
+			WHERE
+		    	code = :code;`
+		for _, v := range info.SkinInfo {
+			_, err := tx.NamedExec(query, v)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "SkillGroupInfo")
+		query :=
+			`INSERT INTO 
+				skill_group (code, name_english, description_english, coefficient_english, expansion_tip_english) 
+			VALUES 
+				(:code, :name_english, :description_english, :coefficient_english, :expansion_tip_english);`
+		slc := make([]models.SkillGroupEnglish, len(info.SkillGroupInfo))
+		for _, v := range info.SkillGroupInfo {
+			slc = append(slc, v)
+		}
+		_, err := tx.NamedExec(query, slc)
+
+		if err != nil {
+			return err
+		}
+	}
+	{
+		fmt.Printf("Processing struct %s\n", "SkillEnglish")
+		query :=
+			`INSERT INTO 
+				skill (code, name_english, description_english) 
+			VALUES 
+				(:code, :name_english, :description_english);`
+		slc := make([]models.SkillEnglish, len(info.SkillInfo))
+		for _, v := range info.SkillInfo {
+			slc = append(slc, v)
+		}
+		_, err := tx.NamedExec(query, slc)
+
+		if err != nil {
+			return err
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "TacticalSkillEnglish")
+		query :=
+			`INSERT INTO 
+				tactical_skill (code, name_english, description_english, coefficient_english, expansion_tip_english) 
+			VALUES 
+				(:code, :name_english, :description_english, :coefficient_english, :expansion_tip_english);`
+		slc := make([]models.TacticalSkillEnglish, len(info.TacticalSkillInfo))
+		for _, v := range info.TacticalSkillInfo {
+			slc = append(slc, v)
+		}
+		_, err := tx.NamedExec(query, slc)
+
+		if err != nil {
+			return err
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "CharacterStateEnglish")
+		query :=
+			`INSERT INTO 
+				character_state (code, name_english, description_english) 
+			VALUES 
+				(:code, :name_english, :description_english);`
+		slc := make([]models.CharacterStateEnglish, len(info.CharacterStateInfo))
+		for _, v := range info.CharacterStateInfo {
+			slc = append(slc, v)
+		}
+		_, err := tx.NamedExec(query, slc)
+
+		if err != nil {
+			return err
+		}
+	}
+
+	{
+		fmt.Printf("Processing struct %s\n", "ItemSkillEnglish")
+		query :=
+			`INSERT INTO 
+				item_skill (code, item_name_english, item_skill_name_english, item_skill_body_english, item_skill_description_english) 
+			VALUES 
+				(:code, :item_name_english, :item_skill_name_english, :item_skill_body_english, :item_skill_description_english);`
+		slc := make([]models.ItemSkillEnglish, len(info.ItemSkillInfo))
+		for _, v := range info.ItemSkillInfo {
+			slc = append(slc, v)
+		}
+		_, err := tx.NamedExec(query, slc)
+
+		if err != nil {
+			return err
+		}
+	}
+
+	err := tx.Commit()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func UpdateLanguageFiles() {
+	req, err := createHttpRequest(LANGUAGE_URL + "English")
+	if err != nil {
+		panic(err)
+	}
+	body, err := makeHttpRequest(req)
+	if err != nil {
+		panic(err)
+	}
+
+	response := &models.Response[models.Language]{}
+	err = json.Unmarshal(*body, &response)
+	if err != nil {
+		panic(err)
+	}
+
+	req, err = createHttpRequest(response.Data.L10Path)
+	if err != nil {
+		panic(err)
+	}
+	body, err = makeHttpRequest(req)
+	if err != nil {
+		panic(err)
+	}
+
+	exists := directoryExists("../lang")
+	if exists {
+		err = os.WriteFile("../lang/English.txt", *body, 0644)
+		if err != nil {
+			panic(err)
+		}
+		return
+	}
+
+	exists = directoryExists("./lang")
+	if exists {
+		err = os.WriteFile("./lang/English.txt", *body, 0644)
+		if err != nil {
+			panic(err)
+		}
+		return
+	}
+
+	panic("Unable to find lang directory")
+}
+
+func directoryExists(path string) bool {
+	_, err := os.Stat(path)
+	if err == nil {
+		return true
+	}
+	return false
 }
