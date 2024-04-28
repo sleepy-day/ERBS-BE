@@ -8,6 +8,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"github.com/sleepy-day/ERBS-BE/src/models"
+	pb "github.com/sleepy-day/ERBS-BE/src/protos"
 	"github.com/sleepy-day/ERBS-BE/src/util"
 	"golang.org/x/time/rate"
 	"io"
@@ -2060,4 +2061,81 @@ func directoryExists(path string) bool {
 		return true
 	}
 	return false
+}
+
+func GetCharacters() ([]*pb.CharacterEntry, error) {
+	query := `
+	SELECT
+		name,
+		code
+	FROM 
+		character;`
+	rows, err := db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	characters := make([]*pb.CharacterEntry, 0)
+	for rows.Next() {
+		var name string
+		var code int32
+		err = rows.Scan(&name, &code)
+		if err != nil {
+			return nil, err
+		}
+		characters = append(characters, &pb.CharacterEntry{Name: name, Code: code})
+	}
+
+	return characters, nil
+}
+
+func GetCharacterProfile(code int32) (*pb.CharacterProfile, error) {
+	query := `
+	SELECT 
+		code,
+		max_hp,
+		max_sp,
+		init_extra_point,
+		max_extra_point,
+		attack_power,
+		defense,
+		hp_regen,
+		sp_regen,
+		attack_speed,
+		attack_speed_limit,
+		attack_speed_min,
+		move_speed,
+		sight_range,
+		radius,
+		pathing_radius,
+		resource,
+		name,
+		str_learn_start_skill,
+		str_use_point_learn_start_skill,
+		lore_name_english,
+		lore_height_english,
+		lore_age_english,
+		lore_title_english,
+		lore_description_english,
+		lore_gender_english
+	FROM
+		character
+	WHERE
+		code = $1;`
+
+	row, err := db.Queryx(query, code)
+	if err != nil {
+		return nil, err
+	}
+	row.Next()
+	c := &pb.CharacterProfile{}
+	err = row.Scan(&c.Code, &c.MaxHp, &c.MaxSp, &c.UniqueResourceInitValue, &c.UniqueResourceMaxValue, &c.AttackPower, &c.Defense, &c.HpRegen,
+		&c.SpRegen, &c.AttackSpeed, &c.AttackSpeedLimit, &c.AttackSpeedMin, &c.MoveSpeed, &c.SightRange, &c.SizeRadius, &c.PathingRadius,
+		&c.ResourceName, &c.CharacterName, &c.AvailableStartingSkills, &c.StartsWithSkill, &c.FullName, &c.Height, &c.Age, &c.Title, &c.Description,
+		&c.Gender)
+	if err != nil {
+		return nil, err
+	}
+
+	return c, nil
 }

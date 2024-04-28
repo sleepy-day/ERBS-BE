@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+import "character.proto";
+
+option go_package = "../pb";
+
+service ErbsApi {
+  rpc GetCharacters(NoParameters) returns (Characters);
+  rpc GetCharacterDetails(GetCharDetails) returns (CharacterProfile);
+}

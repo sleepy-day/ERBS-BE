@@ -3,17 +3,21 @@ package main
 import (
 	"fmt"
 	"github.com/sleepy-day/ERBS-BE/src/erbsdb"
+	"github.com/sleepy-day/ERBS-BE/src/grpcserver"
 	"github.com/sleepy-day/ERBS-BE/src/util"
 	"os"
 )
 
 func main() {
-	update := os.Args[1] == "update"
-	run := os.Args[1] == "run"
+	var update bool
+	var run bool
 
-	if !update && !run {
+	if len(os.Args) == 1 {
 		fmt.Println("No launch option provided, defaulting to run...")
 		run = true
+	} else {
+		update = os.Args[1] == "update"
+		run = os.Args[1] == "run"
 	}
 
 	initializeDatabase()
@@ -21,7 +25,7 @@ func main() {
 	if update {
 		updateDatabase()
 	} else if run {
-		fmt.Println("Not yet implemented.")
+		grpcserver.StartServer()
 	}
 }
 

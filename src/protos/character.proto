@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option go_package = "../pb";
+
+message NoParameters {}
+
+message Characters {
+  repeated CharacterEntry characters = 1;
+}
+
+message GetCharDetails {
+  int32 code = 1;
+}
+
+message CharacterEntry {
+  int32 code = 1;
+  string name = 2;
+}
+
+message CharacterProfile {
+  int32 Code = 1;
+  int32 MaxHp = 2;
+  int32 MaxSp = 3;
+  int32 UniqueResourceInitValue = 4;
+  int32 UniqueResourceMaxValue = 5;
+  int32 AttackPower = 6;
+  int32 Defense = 7;
+  float HpRegen = 8;
+  float SpRegen = 9;
+  float AttackSpeed = 10;
+  float AttackSpeedLimit = 11;
+  float AttackSpeedMin = 12;
+  float MoveSpeed = 13;
+  float SightRange = 14;
+  float SizeRadius = 15;
+  float PathingRadius = 16;
+  string ResourceName = 17;
+  string CharacterName = 18;
+  string AvailableStartingSkills = 19;
+  optional string StartsWithSkill = 20;
+  string FullName = 21;
+  string Height = 22;
+  string Age = 23;
+  string Title = 24;
+  string Description = 25;
+  string Gender = 26;
+}
